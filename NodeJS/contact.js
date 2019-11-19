@@ -12,21 +12,57 @@ var con = mysql.createConnection({
     database: 'contacts'
 })
 
-
+//***********************
+//inserting contact info 
+//based on type
+//***********************
 app.post("/contact",(req,res)=>{
-    var name = req.body.name
+
     var type = req.body.type
-    var user_id = req.body.type
+    var pic_add = req.body.pic_add
 
-    var query = "insert into contact values(?,?,?)"
+    //Initial query to insert basic contact details and generate contact_id
+    var query = "insert into contact values(?,?)"
 
-    con.query(query,[name,type,user_id],(err,rows,fields)=>{
+    con.query(query,[type,pic_add],(err,rows,fields)=>{
        if(err)
        {
            console.log("failed to add contact")
            res.send(0)
        }
-       console.log("added new contact")
+       console.log("added basic contact");
+       
+       //get the contact id because its auto generated
+       var id = " "
+       query = "select last_insert_id()"
+       con.query(query,(err,rows,field)=>{
+            if(err){console.log("failed to retrieve id")}
+       })
+       
+
+       if(type == "b")
+       {
+        var name = req.body.name
+        var addresses = req.body.address
+        var emails = req.body.emails
+        var phone_numbers = req.body.phone_numbers
+        var vat_no = req.body.vat_no
+
+
+         query = "insert into business values(?,?,?,?,?,?)"
+         con.query(query,[id,vat_no,emails,phone_numbers],(err,rows,fields)=>{
+            if(err)
+            {
+                console.log("failed to add business contact")
+                res.send(0)
+            }
+         })
+       }else if(type == "p")
+       {
+
+
+       } 
+
        res.send(1)
     })
 
