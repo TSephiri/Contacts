@@ -1,10 +1,10 @@
 const express = require('express')
-const app = express()
+const server = express()
 const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
 
-app.use(bodyParser.urlencoded({extended:false}))
+server.use(bodyParser.urlencoded({extended:false}))
 
 //Global connection string
 var con = mysql.createConnection({
@@ -18,7 +18,7 @@ var con = mysql.createConnection({
 //inserting contact info 
 //based on type
 //***********************
-app.post("/contact",(req,res)=>{
+server.post("/contact",(req,res)=>{
 
     var type = req.body.type
     var pic_add = req.body.pic_add
@@ -47,58 +47,59 @@ app.post("/contact",(req,res)=>{
                 console.log(rows);
                 console.log(id);  
                 }     
+            console.log("retrieved contact id")
+            /***************************************
+             * conditions to check what kind of contact is to be added
+             * either personal "p" or business "b"
+            */
+            if(type == "b")
+            {
+
+                var name = req.body.name
+                var emails = req.body.emails
+                var phone_numbers = req.body.phone_numbers
+                var vat_no = req.body.vat_no
+
+                query = "insert into business(user_id,vat_no,emails,phone_numbers,name) values(?,?,?,?,?)"
+                con.query(query,[id,vat_no,emails,phone_numbers,name],(err,rows,fields)=>{
+                    if(err)
+                    {
+                        console.log("failed to add business contact")
+                        res.sendStatus(500)
+                    }
+                        console.log("added business contact")
+                        res.send("1")
+                })
+
+            }else if(type == "p")
+            {
+
+                var name = req.body.name
+                var surname = req.body.surname
+                var birthday = req.body.birthday
+                var email = req.body.email
+                var phone = req.body.phone_number
+
+                query = "insert into personal values (?,?,?)"
+                con.query(query,[id,birthday,email,phone,name,surname],(err,rows,fields)=>{
+                    if(err)
+                    {
+                        console.log("failed to add personal contact")
+                        res.sendStatus(500)
+                    }
+                    console.log("added personal contact")
+                    res.send("1") 
+                })
+    
+            } 
+        
         })
-        
-
-        if(type == "b")
-        {
-
-            var name = req.body.name
-            var emails = req.body.emails
-            var phone_numbers = req.body.phone_numbers
-            var vat_no = req.body.vat_no
-
-            query = "insert into business(user_id,vat_no,emails,phone_numbers,name) values(?,?,?,?,?)"
-            con.query(query,[id,vat_no,emails,phone_numbers,name],(err,rows,fields)=>{
-                if(err)
-                {
-                    console.log("failed to add business contact")
-                    res.sendStatus(500)
-                }
-                    console.log("added business contact")
-                    res.send("1")
-            })
-
-        }else if(type == "p")
-        {
-
-            var name = req.body.name
-            var surname = req.body.surname
-            var birthday = req.body.birthday
-            var email = req.body.email
-            var phone = req.body.phone_number
-
-            query = "insert into personal values (?,?,?)"
-            con.query(query,[id,birthday,email,phone,name,surname],(err,rows,fields)=>{
-                if(err)
-                {
-                    console.log("failed to add personal contact")
-                    res.sendStatus(500)
-                }
-                console.log("added personal contact")
-                res.send("1") 
-            })
-   
-        } 
-        
     })
 
     
  })
 
 
-app.use(bodyParser.urlencoded({extended: false}))
-
-app.listen(3000,()=>{
+server.listen(3000,()=>{
     console.log("server is live on 3000")
 })
