@@ -161,6 +161,96 @@ server.post("/contact",(req,res)=>{
     
  })
 
+server.post("/deleteContact",(req,res)=>{
+    var id = req.body.id
+    var type = req.body.type
+
+    var query = "select * from contact where user_id = ?"
+    con.query(query,[id],(err,rows,fields)=>{
+            if(err)
+            {
+                console.log("failed to retrieve user")
+                console.log(err)
+                res.sendStatus(500)
+            }else
+            {
+                query = "delete from Address where user_id = ?"
+                con.query(query,[id],(err,rows,fields)=>{
+                    if(err)
+                    {
+                        console.log("failed to delete user address details")
+                        console.log(err)
+                        res.sendStatus(500)
+                    }else
+                    { 
+                        if(type == "p")
+                        {
+                               query = "delete from personal where user_id = ?"
+                               con.query(query,[id],(err,rows,fields)=>{
+                               if(err)
+                               {
+                                   console.log("failed to delete user personal contact details")
+                                   console.log(err)
+                                   res.sendStatus(500)
+                               }else
+                               {
+                                   query = "delete from contact where user_id = ?"
+                                   con.query(query,[id],(err,rows,fields)=>
+                                   {
+                                       if(err)
+                                       {   
+                                           console.log("failed to delete user personal contact details")
+                                           console.log(err)
+                                           res.sendStatus(500)
+                                       }else
+                                       {
+                                           console.log("deleted personal user")
+                                           res.send("1")
+                                       }
+                                   })
+                                   //console.log("deleted user")
+                               }
+                               })
+                        } else if(type == "b")
+                       {
+                               query = "delete from business where user_id = ?"
+                               con.query(query,[id],(err,rows,fields)=>{
+                               if(err)
+                               {
+                                   console.log("failed to delete user business contact details")
+                                   console.log(err)
+                                   res.sendStatus(500)
+                               }else
+                               {
+                                   query = "delete from contact where user_id = ?"
+                                   con.query(query,[id],(err,rows,fields)=>
+                                   {
+                                       if(err)
+                                       {   
+                                           console.log("failed to delete user business contact details")
+                                           console.log(err)
+                                           res.sendStatus(500)
+                                       }else
+                                       {
+                                           console.log("deleted business user")
+                                           res.send("1")
+                                       }
+                                   })
+                               }    
+                           })
+                       }   
+                    }
+                    
+                })
+            }
+        })
+
+ })
+
+server.post('/update',(req,res)=>{
+
+})
+
 server.listen(3000,()=>{
     console.log("server is live on 3000")
 })
