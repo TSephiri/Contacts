@@ -68,7 +68,44 @@ server.post("/contact",(req,res)=>{
                         res.sendStatus(500)
                     }
                         console.log("added business contact")
-                        res.send("1")
+                        
+                        /**************************************
+                         * adding address for business contact
+                         */
+
+                         //First address 
+                        var type_ad_1 = req.body.type_ad1
+                        var street_1 = req.body.street1
+                        var postal_code_1 = req.body.postal_code1
+                        var city_1 = req.body.city1
+
+                            query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
+                            con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>{
+                                if(err)
+                                {
+                                    res.sendStatus(500)
+                                    console.log("failed to add address 1")
+                                }
+                                // *******************************
+                                //adding second address if first address is added successfully
+                                var type_ad_2 = req.body.type_ad2
+                                var street_2 = req.body.street2
+                                var postal_code_2 = req.body.postal_code2
+                                var city_2 = req.body.city2
+
+                                query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
+                                con.query(query,[type_ad_2,street_2,postal_code_2,city_2,id],(err,rows,fields)=>{
+                                    if(err)
+                                    {
+                                        res.sendStatus(500)
+                                        console.log("failed to add address 2")
+                                    }
+                                    console.log("added second address")
+                                    res.send("1")
+                                })
+
+                            })  
+
                 })
 
             }else if(type == "p")
@@ -87,18 +124,29 @@ server.post("/contact",(req,res)=>{
                         console.log("failed to add personal contact")
                         res.sendStatus(500)
                     }
-                    console.log("added personal contact")
-                    res.send("1") 
+                        console.log("added personal contact")
+                        var type_ad_1 = req.body.type_ad1
+                        var street_1 = req.body.street1
+                        var postal_code_1 = req.body.postal_code1
+                        var city_1 = req.body.city1
+
+                            query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
+                            con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>{
+                                if(err)
+                                {
+                                    res.sendStatus(500)
+                                    console.log("failed to add address 1")
+                                }
+                            })
+                        res.send("1") 
                 })
     
             } 
         
         })
     })
-
     
  })
-
 
 server.listen(3000,()=>{
     console.log("server is live on 3000")
