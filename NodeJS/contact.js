@@ -4,11 +4,13 @@ const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
 
+app.use(bodyParser.urlencoded({extended:false}))
+
 //Global connection string
 var con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Tumisang@07',
+    password: 'timetable',
     database: 'contacts'
 })
 
@@ -22,51 +24,78 @@ app.post("/contact",(req,res)=>{
     var pic_add = req.body.pic_add
 
     //Initial query to insert basic contact details and generate contact_id
-    var query = "insert into contact values(?,?)"
+    var query = "insert into contact(type,pic_add) values(?,?)"
 
     con.query(query,[type,pic_add],(err,rows,fields)=>{
        if(err)
        {
            console.log("failed to add contact")
-           res.send(0)
+           res.sendStatus(500)
        }
        console.log("added basic contact");
-       
+
+       //***************************************************
        //get the contact id because its auto generated
-       var id = " "
-       query = "select last_insert_id()"
-       con.query(query,(err,rows,field)=>{
-            if(err){console.log("failed to retrieve id")}
-       })
-       
+        var id = " "
+        query = "select last_insert_id()"
+        con.query(query,(err,rows,field)=>{
+            if(err){
+                console.log("failed to retrieve id");
+                res.sendStatus(500)}
+            if(rows && rows.length){
+                id = rows.last_insert_id;
+                console.log(rows);
+                console.log(id);  
+                }     
+        })
+        
 
-       if(type == "b")
-       {
-        var name = req.body.name
-        var addresses = req.body.address
-        var emails = req.body.emails
-        var phone_numbers = req.body.phone_numbers
-        var vat_no = req.body.vat_no
+        if(type == "b")
+        {
 
+            var name = req.body.name
+            var emails = req.body.emails
+            var phone_numbers = req.body.phone_numbers
+            var vat_no = req.body.vat_no
 
-         query = "insert into business values(?,?,?,?,?,?)"
-         con.query(query,[id,vat_no,emails,phone_numbers],(err,rows,fields)=>{
-            if(err)
-            {
-                console.log("failed to add business contact")
-                res.send(0)
-            }
-         })
-       }else if(type == "p")
-       {
+            query = "insert into business(user_id,vat_no,emails,phone_numbers,name) values(?,?,?,?,?)"
+            con.query(query,[id,vat_no,emails,phone_numbers,name],(err,rows,fields)=>{
+                if(err)
+                {
+                    console.log("failed to add business contact")
+                    res.sendStatus(500)
+                }
+                    console.log("added business contact")
+                    res.send("1")
+            })
 
+        }else if(type == "p")
+        {
 
-       } 
+            var name = req.body.name
+            var surname = req.body.surname
+            var birthday = req.body.birthday
+            var email = req.body.email
+            var phone = req.body.phone_number
 
-       res.send(1)
+            query = "insert into personal values (?,?,?)"
+            con.query(query,[id,birthday,email,phone,name,surname],(err,rows,fields)=>{
+                if(err)
+                {
+                    console.log("failed to add personal contact")
+                    res.sendStatus(500)
+                }
+                console.log("added personal contact")
+                res.send("1") 
+            })
+   
+        } 
+        
     })
 
-})
+    
+ })
+
 
 app.use(bodyParser.urlencoded({extended: false}))
 
