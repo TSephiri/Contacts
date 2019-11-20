@@ -38,7 +38,7 @@ server.post("/contact",(req,res)=>{
 
        //***************************************************
        //get the contact id because its auto generated
-        
+       //***************************************************
         query = "select last_insert_id() as id"
         con.query(query,(err,rows,field)=>{
             if(err){
@@ -248,6 +248,39 @@ server.post("/deleteContact",(req,res)=>{
  })
 
 server.post('/update',(req,res)=>{
+    var id = req.body.id
+    var type = req.body.type
+    var pic_add = req.body.pic_add
+
+     query = "select * from contact where user_id = ?"
+     con.query(query,[id],(err,rows,fields)=>{
+         if(err)
+         {
+            console.log("user check failed")
+            console.log(err)
+            res.sendStatus(500)
+         }else
+         {
+            if(type == p)
+            {
+                var name = req.body.name
+                var emails = req.body.emails
+                var phone_numbers = req.body.phone_numbers
+                var vat_no = req.body.vat_no
+
+                query = "update personal set name = ?, emails = ?, phone = ?"
+                con.query(query,[name,emails,phone_numbers,vat_no],(err,rows,fields)=>{
+                    if(err)
+                    {
+                        console.log("faillll")
+                    }
+                })
+            }else(type == b)
+            {
+
+            }
+         }
+     })
 
 })
 
