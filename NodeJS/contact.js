@@ -3,6 +3,8 @@ const server = express()
 const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
+const date = require('date-and-time')
+
 
 server.use(bodyParser.urlencoded({extended:false}))
 
@@ -22,7 +24,7 @@ server.post("/contact",(req,res)=>{
 
     var type = req.body.type
     var pic_add = req.body.pic_add
-
+    var id = " "
     //Initial query to insert basic contact details and generate contact_id
     var query = "insert into contact(type,pic_add) values(?,?)"
 
@@ -36,14 +38,14 @@ server.post("/contact",(req,res)=>{
 
        //***************************************************
        //get the contact id because its auto generated
-        var id = " "
-        query = "select last_insert_id()"
+        
+        query = "select last_insert_id() as id"
         con.query(query,(err,rows,field)=>{
             if(err){
                 console.log("failed to retrieve id");
                 res.sendStatus(500)}
             if(rows && rows.length){
-                id = rows.last_insert_id;
+                id = rows[0].id;
                 console.log(rows);
                 console.log(id);  
                 }     
@@ -65,8 +67,10 @@ server.post("/contact",(req,res)=>{
                     if(err)
                     {
                         console.log("failed to add business contact")
+                        console.log(err)
                         res.sendStatus(500)
-                    }
+                    }else
+                    {
                         console.log("added business contact")
                         
                         /**************************************
@@ -85,7 +89,8 @@ server.post("/contact",(req,res)=>{
                                 {
                                     res.sendStatus(500)
                                     console.log("failed to add address 1")
-                                }
+                                }else
+                                {
                                 // *******************************
                                 //adding second address if first address is added successfully
                                 var type_ad_2 = req.body.type_ad2
@@ -99,12 +104,14 @@ server.post("/contact",(req,res)=>{
                                     {
                                         res.sendStatus(500)
                                         console.log("failed to add address 2")
-                                    }
+                                    }else{
                                     console.log("added second address")
                                     res.send("1")
+                                    }
                                 })
-
-                            })  
+                                }
+                            })
+                    }      
 
                 })
 
@@ -117,30 +124,36 @@ server.post("/contact",(req,res)=>{
                 var email = req.body.email
                 var phone = req.body.phone_number
 
-                query = "insert into personal values (?,?,?)"
+                birthday = date.parse(birthday,'DD-MM')
+                console.log(birthday);
+
+                query = "insert into personal(user_id,birthday,email,phone_number,name,surname) values (?,?,?,?,?,?)"
                 con.query(query,[id,birthday,email,phone,name,surname],(err,rows,fields)=>{
                     if(err)
                     {
                         console.log("failed to add personal contact")
+                        console.log(err)
                         res.sendStatus(500)
-                    }
-                        console.log("added personal contact")
+                    }else
+                    {
                         var type_ad_1 = req.body.type_ad1
                         var street_1 = req.body.street1
                         var postal_code_1 = req.body.postal_code1
                         var city_1 = req.body.city1
 
-                            query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
-                            con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>{
+                        query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
+                        con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>{
                                 if(err)
                                 {
                                     res.sendStatus(500)
                                     console.log("failed to add address 1")
                                 }
                             })
+                        console.log("added personal contact")    
                         res.send("1") 
+                    }
                 })
-    
+                
             } 
         
         })
