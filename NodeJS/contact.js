@@ -443,10 +443,16 @@ app.get("/getPersonalContacts",(req,res)=>{
     con.query(query,(err,rows,field)=>{
         if(err)
         {
-            logErr("failed to get personal contacts",err,res,"0");
+            logErr("failed to get personal contacts",err,res,"-1");
             logStatus(res,500);
         }
-        res.json(rows)
+        if(rows && rows.length)
+        {
+            res.json(rows)
+        }else{
+            console.log("no personal contacts")
+            res.send("0")
+        }    
     })     
 })
 
