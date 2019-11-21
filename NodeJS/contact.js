@@ -271,14 +271,33 @@ server.post("/update",(req,res)=>{
                 con.query(query,[name,vat_no,emails,phone_numbers,id],(err,rows,fields)=>{
                     if(err)
                     {
-                        logErr("failll",err);
+                        logErr("failed to update business contact",err);
                         res.sendStatus(500);
                     }
                     res.send("1")
                 })
             }else(type == "p")
             {
-                //res.sendStatus(500);
+                var name = req.body.name
+                var surname = req.body.surname
+                var birthday = req.body.birthday
+                var email = req.body.email
+                var phone = req.body.phone_number
+
+                birthday = date.parse(birthday,'DD-MM')
+
+                query = "update personal set name = ?, surname = ?, birthday = ?, email = ?, phone_number = ? where user_id = ?"
+                con.query(query,[name,surname,birthday,email,phone,id],(err,rows,fields)=>{
+                    if(err)
+                    {
+                        logErr("failed to update personal contact",err);
+                        res.sendStatus(500);
+                    }else{
+                    res.send("1")
+                    console.log("updated personal contact");
+                    }
+                })
+
             }
          }
      })
