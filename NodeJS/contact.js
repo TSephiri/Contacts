@@ -1,12 +1,12 @@
 const express = require('express')
-const server = express()
+const app = express()
 const mysql = require('mysql')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
 const date = require('date-and-time')
 
 
-server.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({extended:false}))
 
 //Global connection string
 var con = mysql.createConnection({
@@ -20,7 +20,7 @@ var con = mysql.createConnection({
 //inserting contact info 
 //based on type
 //***********************
-server.post("/contact",(req,res)=>{
+app.post("/contact",(req,res)=>{
 
     var type = req.body.type
     var pic_add = req.body.pic_add
@@ -163,7 +163,7 @@ server.post("/contact",(req,res)=>{
 /*****************************************************************
  * post method to delete contacts 
  *****************************************************************/
-server.post("/deleteContact",(req,res)=>{
+app.post("/deleteContact",(req,res)=>{
     var id = req.body.id
     var type = req.body.type
 
@@ -258,7 +258,7 @@ server.post("/deleteContact",(req,res)=>{
  * post method to delete contacts 
  *****************************************************************/
 
-server.post("/update",(req,res)=>{
+app.post("/update",(req,res)=>{
     var id = req.body.id
     var type = req.body.type
     var pic_add = req.body.pic_add
@@ -437,6 +437,26 @@ function logStatus(res,status)
 
 // }
 
-server.listen(3000,()=>{
+app.get("/getPersonalContacts",(req,res)=>{
+    
+    var query = "select * from contact C join personal P on (C.user_id = P.user_id) join address A on (C.user_id = A.user_id) ";
+    con.query(query,(err,rows,field)=>{
+        if(err)
+        {
+            logErr("failed to get personal contacts",err,res,"0");
+        }
+        res.json(rows)
+    })     
+})
+
+app.get("/getBusinessContacts",(req,res)=>{
+    
+   // var query = "select ";
+    con.query(query,(err,rows,field)=>{
+        res.json(field)
+    })     
+})
+
+app.listen(3000,()=>{
     console.log("server is live on 3000")
 })
