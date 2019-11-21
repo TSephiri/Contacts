@@ -444,6 +444,7 @@ app.get("/getPersonalContacts",(req,res)=>{
         if(err)
         {
             logErr("failed to get personal contacts",err,res,"0");
+            logStatus(res,500);
         }
         res.json(rows)
     })     
@@ -451,9 +452,22 @@ app.get("/getPersonalContacts",(req,res)=>{
 
 app.get("/getBusinessContacts",(req,res)=>{
     
-   // var query = "select ";
+    var query = "select * from contact C join business B on (C.user_id = B.user_id) join address A on (B.user_id = A.user_id)";
     con.query(query,(err,rows,field)=>{
-        res.json(field)
+        if(err)
+        {
+            logErr("failed to get business contacts ",err,res,"-1")
+            logStatus(res,500);
+        }
+        if(rows && rows.length)
+        {
+            console.log("retrieved business contacts")
+            res.json(rows)
+        }else
+        {
+            console.log("no business contacts")
+            res.send("0")
+        }
     })     
 })
 
