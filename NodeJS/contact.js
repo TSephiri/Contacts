@@ -160,7 +160,9 @@ server.post("/contact",(req,res)=>{
     })
     
  })
-
+/*****************************************************************
+ * post method to delete contacts 
+ *****************************************************************/
 server.post("/deleteContact",(req,res)=>{
     var id = req.body.id
     var type = req.body.type
@@ -174,43 +176,45 @@ server.post("/deleteContact",(req,res)=>{
                 res.sendStatus(500)
             }else
             {
-                query = "delete from Address where user_id = ?"
-                con.query(query,[id],(err,rows,fields)=>{
-                    if(err)
-                    {
-                        console.log("failed to delete user address details")
-                        console.log(err)
-                        res.sendStatus(500)
-                    }else
-                    { 
-                        if(type == "p")
+                if(rows && rows.length)
+                {
+                    query = "delete from Address where user_id = ?"
+                    con.query(query,[id],(err,rows,fields)=>{
+                        if(err)
                         {
-                               query = "delete from personal where user_id = ?"
-                               con.query(query,[id],(err,rows,fields)=>{
-                               if(err)
-                               {
-                                   console.log("failed to delete user personal contact details")
-                                   console.log(err)
-                                   res.sendStatus(500)
-                               }else
-                               {
-                                   query = "delete from contact where user_id = ?"
-                                   con.query(query,[id],(err,rows,fields)=>
-                                   {
-                                       if(err)
-                                       {   
-                                           console.log("failed to delete user personal contact details")
-                                           console.log(err)
-                                           res.sendStatus(500)
-                                       }else
-                                       {
-                                           console.log("deleted personal user")
-                                           res.send("1")
-                                       }
-                                   })
-                                   //console.log("deleted user")
-                               }
-                               })
+                            console.log("failed to delete user address details")
+                            console.log(err)
+                            res.sendStatus(500)
+                        }else
+                        { 
+                            if(type == "p")
+                            {
+                                query = "delete from personal where user_id = ?"
+                                con.query(query,[id],(err,rows,fields)=>{
+                                if(err)
+                                {
+                                    console.log("failed to delete user personal contact details")
+                                    console.log(err)
+                                    res.sendStatus(500)
+                                }else
+                                {
+                                    query = "delete from contact where user_id = ?"
+                                    con.query(query,[id],(err,rows,fields)=>
+                                    {
+                                        if(err)
+                                        {   
+                                            console.log("failed to delete user personal contact details")
+                                            console.log(err)
+                                            res.sendStatus(500)
+                                        }else
+                                        {
+                                            console.log("deleted personal user")
+                                            res.send("1")
+                                        }
+                                    })
+                                    //console.log("deleted user")
+                                }
+                                })
                         } else if(type == "b")
                        {
                                query = "delete from business where user_id = ?"
@@ -239,13 +243,20 @@ server.post("/deleteContact",(req,res)=>{
                                }    
                            })
                        }   
-                    }
-                    
+                    }       
                 })
+                }else
+                {
+                    logErr("user does not exist",null,res,"0");
+                }
             }
         })
 
  })
+
+/*****************************************************************
+ * post method to delete contacts 
+ *****************************************************************/
 
 server.post("/update",(req,res)=>{
     var id = req.body.id
@@ -260,54 +271,171 @@ server.post("/update",(req,res)=>{
             res.sendStatus(500)
          }else
          {
-            if(type == "b")
+            if(rows && rows.length)
             {
-                var name = req.body.name
-                var emails = req.body.emails
-                var phone_numbers = req.body.phone_numbers
-                var vat_no = req.body.vat_no
+                if(type == "b")
+                {
+                    var name = req.body.name
+                    var emails = req.body.emails
+                    var phone_numbers = req.body.phone_numbers
+                    var vat_no = req.body.vat_no
 
-                query = "update business set name = ?, vat_no = ?, emails = ?, phone_numbers = ? where user_id = ?"
-                con.query(query,[name,vat_no,emails,phone_numbers,id],(err,rows,fields)=>{
-                    if(err)
-                    {
-                        logErr("failed to update business contact",err);
-                        res.sendStatus(500);
-                    }
-                    res.send("1")
-                })
-            }else(type == "p")
+                    query = "update business set name = ?, vat_no = ?, emails = ?, phone_numbers = ? where user_id = ?"
+                    con.query(query,[name,vat_no,emails,phone_numbers,id],(err,rows,fields)=>{
+                        if(err)
+                        {
+                            logErr("failed to update business contact",err);
+                            logStatus(res,500);
+                        }
+                        /**********************************
+                        * Update the business users address 1
+                        **********************************/
+                        var type_ad_1 = req.body.type_ad1
+                        var street_1 = req.body.street1
+                        var postal_code_1 = req.body.postal_code1
+                        var city_1 = req.body.city1
+
+                        query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
+                            con.query(query,[type_add_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>
+                            {
+                                if(err)
+                                {
+                                    logErr("failed to update address 1",err,res,"0");
+                                }else
+                                {
+                                     type_ad_1 = req.body.type_ad2
+                                     street_1 = req.body.street2
+                                     postal_code_1 = req.body.postal_code2
+                                     city_1 = req.body.city2
+
+                                    query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
+                                    con.query(query,[type_add_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>
+                                    {
+                                        if(err)
+                                        {
+                                            logErr("failed to update address 2",err,res,"0");
+                                            logStatus(500)
+                                        }else
+                                        {
+                                            console.log("success updated address 2");
+                                            res.send("1")
+                                        }
+                                    })
+                                }
+                            })
+
+                        // if(updateAddress(type_ad_1,street_1,postal_code_1,city_1,id)=="success")
+                        // {       
+                        //     //res.send("1")
+                        //     /*****************************
+                        //     * Update the business users address 2
+                        //     */
+                        //     console.log("updated business contact address 1");
+                        //     var type_ad_1 = req.body.type_ad2
+                        //     var street_1 = req.body.street2
+                        //     var postal_code_1 = req.body.postal_code2
+                        //     var city_1 = req.body.city2
+
+                        //     if(updateAddress(type_ad_1,street_1,postal_code_1,city_1,id)=="success")
+                        //     {       
+                        //         res.send("1")
+                        //         console.log("updated business contact address 1"); 
+                        //     }else
+                        //     {
+                        //         logErr("failed to update address",updateAddress(type_ad_1,street_1,postal_code_1,city_1,id),res,"0")
+                        //     }
+
+                        // }else
+                        // {
+                        //     logErr("failed to update address",updateAddress(type_ad_1,street_1,postal_code_1,city_1,id),res,"0")
+                        // }
+                        
+
+                    })
+                }else(type == "p")
+                {
+                    var name = req.body.name
+                    var surname = req.body.surname
+                    var birthday = req.body.birthday
+                    var email = req.body.email
+                    var phone = req.body.phone_number
+
+                    birthday = date.parse(birthday,'DD-MM')
+
+                    query = "update personal set name = ?, surname = ?, birthday = ?, email = ?, phone_number = ? where user_id = ?"
+                    con.query(query,[name,surname,birthday,email,phone,id],(err,rows,fields)=>{
+                        if(err)
+                        {
+                            logErr("failed to update personal contact",err,res,"0");
+                            logStatus(res,status);
+                        }else{
+                            var type_ad_1 = req.body.type_ad1
+                            var street_1 = req.body.street1
+                            var postal_code_1 = req.body.postal_code1
+                            var city_1 = req.body.city1
+
+                            query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
+                                    con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>
+                                    {
+                                        if(err)
+                                        {
+                                            logErr("failed to update personal address ",err,res,"0");
+                                            logStatus(500)
+                                        }else
+                                        {
+                                            console.log("success updated personal address ");
+                                            res.send("1")
+                                        }
+                                    })
+                            // address = updateAddress(type_ad_1,street_1,postal_code_1,city_1,id);
+                            // console.log();
+                            // if(address == "success")
+                            // {       
+                            //     res.send("1")
+                            //     console.log("updated personal contact");
+                            // }else
+                            // {
+                            //     logErr("failed to update address",address,res,"0")
+                            // }
+                        }
+                    })
+                }
+
+            }else
             {
-                var name = req.body.name
-                var surname = req.body.surname
-                var birthday = req.body.birthday
-                var email = req.body.email
-                var phone = req.body.phone_number
-
-                birthday = date.parse(birthday,'DD-MM')
-
-                query = "update personal set name = ?, surname = ?, birthday = ?, email = ?, phone_number = ? where user_id = ?"
-                con.query(query,[name,surname,birthday,email,phone,id],(err,rows,fields)=>{
-                    if(err)
-                    {
-                        logErr("failed to update personal contact",err);
-                        res.sendStatus(500);
-                    }else{
-                    res.send("1")
-                    console.log("updated personal contact");
-                    }
-                })
-
+                    logErr("user does not exist",null,res,"0");
             }
          }
      })
 
 })
 
-function logErr(msg,err){
+function logErr(msg,err,res,msg2){
     console.log(msg);
     console.log(err);
+    res.send(msg2);
 }
+
+function logStatus(res,status)
+{
+    res.sendStatus(status);
+}
+
+// function updateAddress(type_add,street,postal_code,city,id){
+
+//     query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
+//     con.query(query,[type_add,street,postal_code,city,id],(err,rows,fields)=>
+//     {
+//         if(err)
+//         {
+//             return err;
+//         }else
+//         {
+//             return "success";
+//         }
+//     })
+
+// }
 
 server.listen(3000,()=>{
     console.log("server is live on 3000")
