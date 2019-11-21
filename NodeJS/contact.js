@@ -247,7 +247,7 @@ server.post("/deleteContact",(req,res)=>{
 
  })
 
-server.post('/update',(req,res)=>{
+server.post("/update",(req,res)=>{
     var id = req.body.id
     var type = req.body.type
     var pic_add = req.body.pic_add
@@ -256,33 +256,39 @@ server.post('/update',(req,res)=>{
      con.query(query,[id],(err,rows,fields)=>{
          if(err)
          {
-            console.log("user check failed")
-            console.log(err)
+            logErr("cant find user",err);
             res.sendStatus(500)
          }else
          {
-            if(type == p)
+            if(type == "b")
             {
                 var name = req.body.name
                 var emails = req.body.emails
                 var phone_numbers = req.body.phone_numbers
                 var vat_no = req.body.vat_no
 
-                query = "update personal set name = ?, emails = ?, phone = ?"
-                con.query(query,[name,emails,phone_numbers,vat_no],(err,rows,fields)=>{
+                query = "update business set name = ?, vat_no = ?, emails = ?, phone_numbers = ? where user_id = ?"
+                con.query(query,[name,vat_no,emails,phone_numbers,id],(err,rows,fields)=>{
                     if(err)
                     {
-                        console.log("faillll")
+                        logErr("failll",err);
+                        res.sendStatus(500);
                     }
+                    res.send("1")
                 })
-            }else(type == b)
+            }else(type == "p")
             {
-
+                //res.sendStatus(500);
             }
          }
      })
 
 })
+
+function logErr(msg,err){
+    console.log(msg);
+    console.log(err);
+}
 
 server.listen(3000,()=>{
     console.log("server is live on 3000")
