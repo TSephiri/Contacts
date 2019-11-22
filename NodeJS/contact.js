@@ -437,24 +437,7 @@ function logStatus(res,status)
 
 // }
 
-app.get("/getPersonalContacts",(req,res)=>{
-    
-    var query = "select * from contact C join personal P on (C.user_id = P.user_id) join address A on (C.user_id = A.user_id) ";
-    con.query(query,(err,rows,field)=>{
-        if(err)
-        {
-            logErr("failed to get personal contacts",err,res,"-1");
-            logStatus(res,500);
-        }
-        if(rows && rows.length)
-        {
-            res.json(rows)
-        }else{
-            console.log("no personal contacts")
-            res.send("0")
-        }    
-    })     
-})
+
 
 app.get("/getBusinessContacts",(req,res)=>{
     
