@@ -35,4 +35,16 @@ router.get("/getBusinessContacts",(req,res)=>{
     })     
 })
 
+function logErr(msg,err,res,msg2){
+    console.log(msg);
+    console.log(err);
+    res.send(msg2);
+}
+
+function logStatus(res,status)
+{
+    res.sendStatus(status);
+}
+
+
 module.exports = router;
