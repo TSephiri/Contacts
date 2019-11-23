@@ -67,7 +67,21 @@ router.post("/AddContact",(req,res)=>{
                     {
                         console.log("failed to add business contact")
                         console.log(err)
-                        res.sendStatus(500)
+
+                        /****************
+                         * query to delete generated contact if adding more informaion fails
+                         ****************/
+                        query = "delete contact where id = ?"
+                        con.query(query,[id],(err,rows,fields)=>{
+                            if(err)
+                            {
+                                logErr("failed to delete unused contact",err,res,"-1");
+                                logStatus(500);
+                            }
+                                res.send("1")
+                                console.log("successfully deleted contact");
+                        })
+                        //res.sendStatus(500)
                     }else
                     {
                         console.log("added business contact")
@@ -132,7 +146,17 @@ router.post("/AddContact",(req,res)=>{
                     {
                         console.log("failed to add personal contact")
                         console.log(err)
-                        res.sendStatus(500)
+                        query = "delete contact where id = ?"
+                        con.query(query,[id],(err,rows,fields)=>{
+                            if(err)
+                            {
+                                logErr("failed to delete unused contact",err,res,"-1");
+                                logStatus(500);
+                            }
+                                res.send("1")
+                                console.log("successfully deleted contact");
+                        })
+                        //res.sendStatus(500)
                     }else
                     {
                         var type_ad_1 = req.body.type_ad1
