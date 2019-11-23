@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".BusinessContacts"
+            android:label="@string/title_activity_business_contacts"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ScrollingActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">

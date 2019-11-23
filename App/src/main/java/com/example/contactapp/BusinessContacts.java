@@ -11,9 +11,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import com.example.contactapp.Retrofit.BusinessContactModel;
+import com.example.contactapp.Retrofit.INodeJS;
+import com.example.contactapp.Retrofit.RetrofitClient;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -22,14 +23,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import com.example.contactapp.Retrofit.INodeJS;
-import com.example.contactapp.Retrofit.RetrofitClient;
+public class BusinessContacts extends AppCompatActivity {
 
-public class ScrollingActivity extends AppCompatActivity {
-
+    private List<BusinessContactModel> ContactList;
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
-    List<PersonalContactModel> ContactList;
 
     @Override
     protected void onStop() {
@@ -46,7 +44,7 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_business_contacts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,43 +61,22 @@ public class ScrollingActivity extends AppCompatActivity {
         myAPI = retrofit.create(INodeJS.class);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void getPersonalContact()
+    public void getBusinessContact()
     {
-        Call<List<PersonalContactModel>> call = myAPI.getPersonalContacts();
+        Call<List<BusinessContactModel>> call = myAPI.getBusinessContacts();
 
         //Toast.makeText(FrontPage.this, "Uhm : hey" , Toast.LENGTH_SHORT).show();
 
-        call.enqueue(new Callback<List<PersonalContactModel>>() {
+        call.enqueue(new Callback<List<BusinessContactModel>>() {
             @Override
-            public void onResponse(Call<List<PersonalContactModel>> call, Response<List<PersonalContactModel>> response) {
+            public void onResponse(Call<List<BusinessContactModel>> call, Response<List<BusinessContactModel>> response) {
 
                 ContactList = response.body();
-                
+
             }
 
             @Override
-            public void onFailure(Call<List<PersonalContactModel>> call, Throwable t) {
+            public void onFailure(Call<List<BusinessContactModel>> call, Throwable t) {
                 Log.i("log ",t.getMessage());
             }
         });
