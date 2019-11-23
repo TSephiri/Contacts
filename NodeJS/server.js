@@ -14,7 +14,7 @@ app.use('/add',addContact);
 
 app.use('/update',updateContact);
 
-app.use('delete',deleteContact);
+app.use('/delete',deleteContact);
 
 app.listen(3000,()=>{
     console.log("server is live on 3000");
