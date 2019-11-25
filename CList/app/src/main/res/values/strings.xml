@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Contact List</string>
+    <string name="cat_personal">Personal</string>
+    <string name="cat_business">Business</string>
+    <string name="cat_addPersonal">Add Business</string>
+    <string name="cat_addBusiness">Add Personal</string>
+</resources>

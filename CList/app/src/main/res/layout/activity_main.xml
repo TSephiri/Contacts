@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Personal"
+        style="@style/CategoryStyle"
+        android:background="@color/personal"
+        android:text="@string/cat_personal" />
+    <TextView
+        android:id="@+id/Business"
+        style="@style/CategoryStyle"
+        android:background="@color/business"
+        android:text="@string/cat_business" />
+    <TextView
+        android:id="@+id/AddPersonal"
+        style="@style/CategoryStyle"
+        android:background="@color/add_personal"
+        android:text="@string/cat_addPersonal" />
+    <TextView
+        android:id="@+id/AddBusiness"
+        style="@style/CategoryStyle"
+        android:background="@color/add_business"
+        android:text="@string/cat_addBusiness" />
+
+</LinearLayout>
