@@ -10,22 +10,26 @@
     <TextView
         android:id="@+id/Personal"
         style="@style/CategoryStyle"
-        android:background="@color/personal"
+        android:background="@color/bg"
+        android:textColor="@color/colorPrimary"
         android:text="@string/cat_personal" />
     <TextView
         android:id="@+id/Business"
         style="@style/CategoryStyle"
-        android:background="@color/business"
+        android:background="@color/bg"
+        android:textColor="@color/colorPrimary"
         android:text="@string/cat_business" />
     <TextView
         android:id="@+id/AddPersonal"
         style="@style/CategoryStyle"
-        android:background="@color/add_personal"
+        android:background="@color/bg"
+        android:textColor="@color/colorPrimary"
         android:text="@string/cat_addPersonal" />
     <TextView
         android:id="@+id/AddBusiness"
         style="@style/CategoryStyle"
-        android:background="@color/add_business"
+        android:background="@color/bg"
+        android:textColor="@color/colorPrimary"
         android:text="@string/cat_addBusiness" />
 
 </LinearLayout>
