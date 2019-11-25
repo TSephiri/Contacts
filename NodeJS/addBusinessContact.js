@@ -118,6 +118,7 @@ router.post("/addBusinessContact",(req,res)=>{
                                         console.log("failed to add address 2")
                                     }else{
                                     console.log("added second address")
+                                    console.log("added contact safely")
                                     res.send("1")
                                     }
                                 })
