@@ -1,8 +1,33 @@
 package com.example.clist.Retrofit;
 
 public class BusinessContactModel {
-    private String user_id,vat_no,emails,phone_numbers,name,
-            type_add,street,postal_code,city;
+    private String user_id;
+    private String type;
+    private String pic_add;
+    private String vat_no;
+    private String emails;
+    private String phone_numbers;
+    private String name;
+    private String type_add;
+    private String street;
+    private String postal_code;
+    private String city;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPic_add() {
+        return pic_add;
+    }
+
+    public void setPic_add(String pic_add) {
+        this.pic_add = pic_add;
+    }
 
     public String getUser_id() {
         return user_id;

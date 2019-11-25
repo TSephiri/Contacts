@@ -1,6 +1,6 @@
 package com.example.clist.Retrofit;
 
-import android.database.Observable;
+import io.reactivex.Observable;
 
 import java.util.List;
 
@@ -16,9 +16,12 @@ public interface INodeJS {
     @POST("/add/addPersonalContact")
     @FormUrlEncoded
     Observable<String> addPersonalContact(@Field("type")String type,
+                                          @Field("name")String name,
                                           @Field("email")String email,
                                           @Field("phone_number")String phone_number,
+                                          @Field("birthday") String birthday,
                                           @Field("surname")String surname,
+                                          @Field("type_ad1")String type_ad1,
                                           @Field("street1")String street1,
                                           @Field("postal_code1")String postal_code1,
                                           @Field("city1")String city1);
@@ -69,10 +72,10 @@ public interface INodeJS {
                                              @Field("postal_code2")String postal_code2,
                                              @Field("city2")String city2);
 
-    @GET("get/getPersonalContact")
+    @GET("personal/getPersonalContact")
     Call<List<PersonalContactModel>> getPersonalContacts();
 
-    @GET("get/getBusinessContact")
+    @GET("business/getBusinessContacts")
     Call<List<BusinessContactModel>> getBusinessContacts();
 
 
