@@ -55,8 +55,8 @@ router.post("/addPersonalContact",(req,res)=>{
              * conditions to check what kind of contact is to be added
              * either personal "p" or business "b"
             */
-        //    if(type == "p")
-        //    {
+           if(type == "p")
+           {
 
                var name = req.body.name
                var surname = req.body.surname
@@ -79,9 +79,10 @@ router.post("/addPersonalContact",(req,res)=>{
                            {
                                logErr("failed to delete unused contact",err,res,"-1");
                                logStatus(500);
-                           }
-                               res.send("1")
+                           }else{
+                               res.send("0")
                                console.log("successfully deleted contact");
+                           }
                        })
                        //res.sendStatus(500)
                    }else
@@ -97,15 +98,19 @@ router.post("/addPersonalContact",(req,res)=>{
                                {
                                    res.sendStatus(500)
                                    console.log("failed to add address 1")
-                               }
+                                   console.log(type_ad_1,street_1,postal_code_1,city_1);
+                               }else{
+                                console.log("added personal contact")  
+                                res.send("1")
+                               }  
                            })
-                       console.log("added personal contact")    
-                       res.send("1") 
+
                    }
+                   
             
                 })
-            //}
-
+            
+           }
         })
     })
 })
