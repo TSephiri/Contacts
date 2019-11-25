@@ -49,5 +49,12 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="editText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">20</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textSize">20dp</item>
+    </style>
 
 </resources>

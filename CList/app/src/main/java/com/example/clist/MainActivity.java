@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         personal = (TextView) findViewById(R.id.Personal);
         business = (TextView) findViewById(R.id.Business);
-//        addB = (TextView) findViewById(R.id.AddBusiness);
-//        addP = (TextView) findViewById(R.id.AddPersonal);
 
         personal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,29 +45,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        addP.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this,"Opening add personal contacts",Toast.LENGTH_SHORT)
-//                        .show();
-//
-//                //creating personal contact intent
-//                Intent p = new Intent(MainActivity.this,AddPersonal.class);
-//                startActivity(p);
-//            }
-//        });
-//
-//        addB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(MainActivity.this,"Opening add business contacts",Toast.LENGTH_SHORT)
-//                        .show();
-//
-//                //creating personal contact intent
-//                Intent p = new Intent(MainActivity.this,AddBusiness.class);
-//                startActivity(p);
-//            }
-//        });
     }
 
 }

@@ -14,13 +14,8 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Name"
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                    style="@style/editText"
+                    android:hint="Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -30,13 +25,8 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Surname"
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                    style="@style/editText"
+                    android:hint="Surname"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -45,13 +35,8 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Phone Number"
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                    style="@style/editText"
+                    android:hint="Phone Number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -61,13 +46,8 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Email Address"
-                    android:inputType="textEmailAddress"
-                    android:textSize="20sp" />
+                    style="@style/editText"
+                    android:hint="Email Address" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -77,13 +57,8 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Street "
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                    style="@style/editText"
+                    android:hint="Street " />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,13 +68,9 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
+                    style="@style/editText"
                     android:hint="City"
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -109,13 +80,9 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
+                    style="@style/editText"
                     android:hint="Postal Code"
-                    android:inputType="text"
-                    android:textSize="20sp" />
+                />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
