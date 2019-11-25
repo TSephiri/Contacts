@@ -19,17 +19,5 @@
         android:background="@color/bg"
         android:textColor="@color/colorPrimary"
         android:text="@string/cat_business" />
-    <TextView
-        android:id="@+id/AddPersonal"
-        style="@style/CategoryStyle"
-        android:background="@color/bg"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/cat_addPersonal" />
-    <TextView
-        android:id="@+id/AddBusiness"
-        style="@style/CategoryStyle"
-        android:background="@color/bg"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/cat_addBusiness" />
 
 </LinearLayout>
