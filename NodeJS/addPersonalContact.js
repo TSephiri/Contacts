@@ -64,7 +64,7 @@ router.post("/addPersonalContact",(req,res)=>{
                var email = req.body.email
                var phone = req.body.phone_number
 
-               birthday = date.parse(birthday,'DD-MM')
+               birthday = date.parse(birthday,'DD-MM-YYYY')
                console.log(birthday);
 
                query = "insert into personal(user_id,birthday,email,phone_number,name,surname) values (?,?,?,?,?,?)"
