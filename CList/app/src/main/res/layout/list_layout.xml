@@ -6,7 +6,8 @@
     android:paddingRight="16dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
 <!--    <de.hdodenhof.circleimageview.CircleImageView-->
 <!--        android:id="@+id/avatar"-->
@@ -15,13 +16,13 @@
 <!--        android:layout_marginRight="16dp"/>-->
 
     <TextView
-        android:id="@android:id/text1"
+        android:id="@+id/layout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"/>
 
     <TextView
-        android:id="@android:id/text2"
+        android:id="@+id/layoutPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"/>

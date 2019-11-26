@@ -2,21 +2,13 @@ package com.example.clist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.INodeJS;
-import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.RetrofitClient;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +25,7 @@ public class Personal extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<PersonalContactModel> pcmList;
     ArrayList<String> aList = new ArrayList<String>();
+    ArrayList<Contact> contactList = new ArrayList<Contact>();
 
 
     @Override
@@ -63,7 +56,7 @@ public class Personal extends AppCompatActivity {
 //                Toast.makeText(Personal.this,"Opening add personal contacts",Toast.LENGTH_SHORT)
 //                        .show();
 //
-//                //creating personal contact intent
+//                //creating personal Contact intent
 //                Intent p = new Intent(Personal.this,AddPersonal.class);
 //                startActivity(p);
 //            }
@@ -94,17 +87,18 @@ public class Personal extends AppCompatActivity {
 
     public void addTextViews()
     {
-
         for(PersonalContactModel model : pcmList)
         {
             aList.add(model.getName());
+            contactList.add(new Contact(model.getName(),model.getPhone_number()));
         }
         
-        String[] cList = new String[aList.size()];
+       // String[] cList = new String[aList.size()];
 
-        cList = aList.toArray(cList);
+       // cList = aList.toArray(cList);
 
-        ArrayAdapter<String> bAdapt = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,cList);
+
+        ContactAdapter bAdapt = new ContactAdapter(this,contactList);
         ListView listView = (ListView) findViewById(R.id.pListView);
         listView.setAdapter(bAdapt);
 

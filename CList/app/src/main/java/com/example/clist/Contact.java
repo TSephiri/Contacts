@@ -1,6 +1,6 @@
 package com.example.clist;
 
-public class contact {
+public class Contact {
 
     public String getmName() {
         return mName;
@@ -21,7 +21,7 @@ public class contact {
     private String mName;
     private String mNumber;
 
-    public contact(String name,String number){
+    public Contact(String name, String number){
         mName = name;
         mNumber = number;
     }

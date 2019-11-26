@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Opening Personal contacts",Toast.LENGTH_SHORT)
                         .show();
 
-                //creating personal contact intent
+                //creating personal Contact intent
                 Intent p = new Intent(MainActivity.this,Personal.class);
                 startActivity(p);
             }
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Opening business contacts",Toast.LENGTH_SHORT)
                         .show();
 
-                //creating personal contact intent
+                //creating personal Contact intent
                 Intent p = new Intent(MainActivity.this,Business.class);
                 startActivity(p);
             }

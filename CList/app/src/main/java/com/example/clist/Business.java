@@ -78,7 +78,7 @@ public class Business extends AppCompatActivity {
 //                Toast.makeText(Business.this,"Opening add business contacts", Toast.LENGTH_SHORT)
 //                        .show();
 //
-//                //creating personal contact intent
+//                //creating personal Contact intent
 //                Intent p = new Intent(Business.this,AddBusiness.class);
 //                startActivity(p);
 //            }
@@ -132,9 +132,9 @@ public class Business extends AppCompatActivity {
             aList.add(model.getName());
             //Toast.makeText(Business.this, aList.get(2) ,Toast.LENGTH_SHORT).show();
 //
-//            TextView contact = new TextView(this);
-//            contact.setText(""+model.getName());
-//            layout.addView(contact,lp);
+//            TextView Contact = new TextView(this);
+//            Contact.setText(""+model.getName());
+//            layout.addView(Contact,lp);
         }
         //Toast.makeText(Business.this,""+ aList.size(),Toast.LENGTH_SHORT).show();
         String[] cList = new String[aList.size()];
