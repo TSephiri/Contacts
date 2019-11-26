@@ -72,7 +72,7 @@ public interface INodeJS {
                                              @Field("postal_code2")String postal_code2,
                                              @Field("city2")String city2);
 
-    @GET("personal/getPersonalContact")
+    @GET("personal/getPersonalContacts")
     Call<List<PersonalContactModel>> getPersonalContacts();
 
     @GET("business/getBusinessContacts")
