@@ -2,8 +2,12 @@ package com.example.clist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.clist.Retrofit.PersonalContactModel;
@@ -25,8 +29,8 @@ public class Personal extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<PersonalContactModel> pcmList;
     ArrayList<String> aList = new ArrayList<String>();
-    ArrayList<Contact> contactList = new ArrayList<Contact>();
-
+    ArrayList<PersonalContactModel> contactList = new ArrayList<PersonalContactModel>();
+    ListView listView;
 
     @Override
     protected void onStop() {
@@ -45,29 +49,25 @@ public class Personal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
-        //TextView addP = (TextView) findViewById(R.id.AddPersonal);
+        listView = (ListView) findViewById(R.id.pListView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent contactDetails = new Intent(Personal.this,AddPersonal.class);
+                PersonalContactModel tempContact = contactList.get(position);
+                //contactDetails.putExtra("contact", (Parcelable) tempContact);
+                startActivity(contactDetails);
+            }
+        });
 
-        Retrofit retrofit = RetrofitClient.getInstance_get();
-        myAPI = retrofit.create(INodeJS.class);
-
-//        addP.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(Personal.this,"Opening add personal contacts",Toast.LENGTH_SHORT)
-//                        .show();
-//
-//                //creating personal Contact intent
-//                Intent p = new Intent(Personal.this,AddPersonal.class);
-//                startActivity(p);
-//            }
-//        });
         getPersonalContacts();
     }
 
     public void getPersonalContacts(){
-        Call<List<PersonalContactModel>> call = myAPI.getPersonalContacts();
+        Retrofit retrofit = RetrofitClient.getInstance_get();
+        myAPI = retrofit.create(INodeJS.class);
 
-        //Toast.makeText(Business.this, "Uhm : hey" , Toast.LENGTH_SHORT).show();
+        Call<List<PersonalContactModel>> call = myAPI.getPersonalContacts();
 
         call.enqueue(new Callback<List<PersonalContactModel>>() {
             @Override
@@ -89,18 +89,12 @@ public class Personal extends AppCompatActivity {
     {
         for(PersonalContactModel model : pcmList)
         {
-            aList.add(model.getName());
-            contactList.add(new Contact(model.getName(),model.getPhone_number()));
+            contactList.add(new PersonalContactModel(model.getUser_id(),model.getBirthday(),model.getEmail(),
+                    model.getPhone_number(),model.getName(),model.getSurname(),
+                    model.getType_add(), model.getStreet(),model.getPostal_code(),model.getCity()));
         }
-        
-       // String[] cList = new String[aList.size()];
-
-       // cList = aList.toArray(cList);
-
 
         ContactAdapter bAdapt = new ContactAdapter(this,contactList);
-        ListView listView = (ListView) findViewById(R.id.pListView);
         listView.setAdapter(bAdapt);
-
     }
 }

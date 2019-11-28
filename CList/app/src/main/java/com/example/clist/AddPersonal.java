@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.clist.Retrofit.BusinessContactModel;
 import com.example.clist.Retrofit.INodeJS;
+import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.RetrofitClient;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -24,6 +26,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AddPersonal extends AppCompatActivity {
@@ -33,6 +38,11 @@ public class AddPersonal extends AppCompatActivity {
 
     TextInputLayout tiname,tisurname,tiemail,tiphone,tibirthday,tistreet,ticode,ticity;
     String name,surname,email,phone,birthday,street,code,city;
+    String ID;
+
+    List<PersonalContactModel> pcmList;
+    ArrayList<String> aList = new ArrayList<String>();
+    ArrayList<PersonalContactModel> contactList = new ArrayList<PersonalContactModel>();
 
     @Override
     protected void onStop() {
@@ -67,6 +77,10 @@ public class AddPersonal extends AppCompatActivity {
         tibirthday = findViewById(R.id.Bday);
 
 
+        ID = getIntent().getStringExtra("personal");
+        if(!ID.equals("")){
+            getPersonalContacts();
+        }
         //ArrayAdapter<String>
 
 
@@ -77,6 +91,8 @@ public class AddPersonal extends AppCompatActivity {
                 addContact(name,surname,email,phone,street,city,code,birthday);
             }
         });
+
+
     }
 
     public void getContactInfo(){
@@ -100,17 +116,45 @@ public class AddPersonal extends AppCompatActivity {
                     public void accept(String s) throws Exception {
                         if (s.equals("1"))//column name from database
                         {
-                            Toast.makeText(AddPersonal.this, "Added Contact ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPersonal.this, "Added PContact ", Toast.LENGTH_SHORT).show();
                             //creating new activity
 //                            Intent frontP = new Intent(AddPersonal.this, FrontPage.class);
 //                            frontP.putExtra("student",student);
 //                            startActivity(frontP);
 //                            finish();
                         } else {
-                            Toast.makeText(AddPersonal.this, "Failed to add Contact", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPersonal.this, "Failed to add PContact", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
         );
+    }
+
+    public void getPersonalContacts(){
+        Retrofit retrofit = RetrofitClient.getInstance_get();
+        myAPI = retrofit.create(INodeJS.class);
+
+        Call<List<PersonalContactModel>> call = myAPI.getPersonalContacts();
+
+        //Toast.makeText(Business.this, "Uhm : hey" , Toast.LENGTH_SHORT).show();
+
+        call.enqueue(new Callback<List<PersonalContactModel>>() {
+            @Override
+            public void onResponse(Call<List<PersonalContactModel>> call, Response<List<PersonalContactModel>> response) {
+
+                pcmList = response.body();
+
+                displayInfo();
+            }
+
+            @Override
+            public void onFailure(Call<List<PersonalContactModel>> call, Throwable t) {
+                Log.i("log ",t.getMessage());
+            }
+        });
+    }
+
+    public void displayInfo(){
+        tiname.getEditText().setText("");
     }
 }

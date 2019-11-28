@@ -72,30 +72,7 @@ public class Business extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getInstance_get();
         myAPI = retrofit.create(INodeJS.class);
 
-//        addB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(Business.this,"Opening add business contacts", Toast.LENGTH_SHORT)
-//                        .show();
-//
-//                //creating personal Contact intent
-//                Intent p = new Intent(Business.this,AddBusiness.class);
-//                startActivity(p);
-//            }
-//        });
-
-//        Retrofit.Builder builder = new Retrofit.Builder()
-//                .baseUrl("http://192.168.43.224:3000/")
-//                .addConverterFactory(GsonConverterFactory.create());
-//
-//        Retrofit retrofit = builder.build();
-//        myAPI = retrofit.create(INodeJS.class);
-////
-            getBusinessContacts();
-
-
-
-
+        getBusinessContacts();
 
 
     }
@@ -123,20 +100,13 @@ public class Business extends AppCompatActivity {
 
     public void addTextViews()
     {
-//        ScrollView sv = (ScrollView) findViewById(R.id.root);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        LinearLayout layout = new LinearLayout(this);
 
         for(BusinessContactModel model : bcmList)
         {
             aList.add(model.getName());
-            //Toast.makeText(Business.this, aList.get(2) ,Toast.LENGTH_SHORT).show();
-//
-//            TextView Contact = new TextView(this);
-//            Contact.setText(""+model.getName());
-//            layout.addView(Contact,lp);
+
         }
-        //Toast.makeText(Business.this,""+ aList.size(),Toast.LENGTH_SHORT).show();
+
         String[] cList = new String[aList.size()];
 
          cList = aList.toArray(cList);

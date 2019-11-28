@@ -12,13 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.clist.Retrofit.PersonalContactModel;
+
 import java.util.ArrayList;
 
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<PersonalContactModel> {
 
-    public ContactAdapter(Activity context, ArrayList<Contact> contacts)
+    public ContactAdapter(Activity context, ArrayList<PersonalContactModel> PersonalContactModels)
     {
-        super(context,0,contacts);
+        super(context,0,PersonalContactModels);
     }
 
     /**
@@ -40,19 +42,19 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         }
 
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Contact currentContact = getItem(position);
+        PersonalContactModel currentPersonalContactModel = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.layout_name);
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
-        nameTextView.setText(currentContact.getmName());
+        nameTextView.setText(currentPersonalContactModel.getName());
 
         // Find the TextView in the list_item.xml layout with the ID version_number
         TextView numberTextView = (TextView) listItemView.findViewById(R.id.layoutPhone);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
-        numberTextView.setText(currentContact.getmNumber());
+        numberTextView.setText(currentPersonalContactModel.getPhone_number());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
 //        ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
