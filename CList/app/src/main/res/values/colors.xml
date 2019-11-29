@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F000</color>
+    <color name="colorPrimaryDark">#F999</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="business">#E888</color>
+    <color name="personal">#E88</color>
+    <color name="add_business">#E888</color>
+    <color name="add_personal">#E88</color>
+    <color name="bg">#ffff</color>
+</resources>

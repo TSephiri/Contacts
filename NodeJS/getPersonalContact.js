@@ -26,6 +26,7 @@ router.get("/getPersonalContacts",(req,res)=>{
         if(rows && rows.length)
         {
             res.json(rows)
+            console.log("retrieved personal contact")
         }else{
             console.log("no personal contacts")
             res.send("0")
