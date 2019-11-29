@@ -11,7 +11,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
-    TextView personal,business, addB,addP;
+    TextView personal,business;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

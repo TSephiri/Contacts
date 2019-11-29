@@ -40,6 +40,8 @@ public class AddPersonal extends AppCompatActivity {
     String name,surname,email,phone,birthday,street,code,city;
     String ID;
 
+    boolean update = false;
+
     List<PersonalContactModel> pcmList;
     ArrayList<String> aList = new ArrayList<String>();
     ArrayList<PersonalContactModel> contactList = new ArrayList<PersonalContactModel>();
@@ -77,18 +79,22 @@ public class AddPersonal extends AppCompatActivity {
         tibirthday = findViewById(R.id.Bday);
 
 
-        ID = getIntent().getStringExtra("personal");
-        if(!ID.equals("")){
-            getPersonalContacts();
-        }
-        //ArrayAdapter<String>
+        ID = getIntent().getStringExtra("id");
 
+        if(!ID.equals("")){
+            displayInfo();
+            update = true;
+        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getContactInfo();
-                addContact(name,surname,email,phone,street,city,code,birthday);
+                if(update) {
+                    updateContact(name, surname, email, phone, street, city, code, birthday,ID);
+                }else{
+                    addContact(name, surname, email, phone, street, city, code, birthday);
+                }
             }
         });
 
@@ -106,8 +112,10 @@ public class AddPersonal extends AppCompatActivity {
        birthday = tibirthday.getEditText().getText().toString().trim();
     }
 
-    public void addContact(String n,String s,String e,String no,String str,String c,String code,String bday)
+    public void addContact(String n,String s,String e,String no,String str,String c,
+                           String code,String bday)
     {
+
         compositeDisposable.add(myAPI.addPersonalContact("p",n,e,no,bday,s,"residential",str,code,c)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -116,45 +124,52 @@ public class AddPersonal extends AppCompatActivity {
                     public void accept(String s) throws Exception {
                         if (s.equals("1"))//column name from database
                         {
-                            Toast.makeText(AddPersonal.this, "Added PContact ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPersonal.this, "Added Contact ", Toast.LENGTH_SHORT).show();
                             //creating new activity
-//                            Intent frontP = new Intent(AddPersonal.this, FrontPage.class);
-//                            frontP.putExtra("student",student);
-//                            startActivity(frontP);
-//                            finish();
+                            Intent personal = new Intent(AddPersonal.this, Personal.class);
+                            startActivity(personal);
+                            finish();
                         } else {
-                            Toast.makeText(AddPersonal.this, "Failed to add PContact", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddPersonal.this, "Failed to add Contact", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
         );
     }
-
-    public void getPersonalContacts(){
-        Retrofit retrofit = RetrofitClient.getInstance_get();
-        myAPI = retrofit.create(INodeJS.class);
-
-        Call<List<PersonalContactModel>> call = myAPI.getPersonalContacts();
-
-        //Toast.makeText(Business.this, "Uhm : hey" , Toast.LENGTH_SHORT).show();
-
-        call.enqueue(new Callback<List<PersonalContactModel>>() {
-            @Override
-            public void onResponse(Call<List<PersonalContactModel>> call, Response<List<PersonalContactModel>> response) {
-
-                pcmList = response.body();
-
-                displayInfo();
-            }
-
-            @Override
-            public void onFailure(Call<List<PersonalContactModel>> call, Throwable t) {
-                Log.i("log ",t.getMessage());
-            }
-        });
+    public void displayInfo(){
+        tiname.getEditText().setText(getIntent().getStringExtra("name"));
+        tisurname.getEditText().setText(getIntent().getStringExtra("surname"));
+        tibirthday.getEditText().setText(getIntent().getStringExtra("bday"));
+        tiemail.getEditText().setText(getIntent().getStringExtra("email"));
+        tiphone.getEditText().setText(getIntent().getStringExtra("phone"));
+        tistreet.getEditText().setText(getIntent().getStringExtra("street"));
+        ticity.getEditText().setText(getIntent().getStringExtra("city"));
+        ticode.getEditText().setText(getIntent().getStringExtra("post"));
     }
 
-    public void displayInfo(){
-        tiname.getEditText().setText("");
+    public void updateContact(String n,String s,String e,String no,String str,String c,
+                              String code,String bday,String id)
+    {
+        Toast.makeText(AddPersonal.this, "addContact: "+ n +"  "+ e +"   "+ bday+"  "+ str, Toast.LENGTH_LONG).show();
+       // Log.i("addContact: "+ n +"  "+ e +"   "+ bday+"  "+ str,);
+        compositeDisposable.add(myAPI.updatePersonalContact("p",id,bday,n,e,no,"Physical",s,str,code,c)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                @Override
+                public void accept(String s) throws Exception {
+                    if (s.equals("1"))//column name from database
+                    {
+                        Toast.makeText(AddPersonal.this, "Updated Contact ", Toast.LENGTH_SHORT).show();
+                        //creating new activity
+                        Intent personal = new Intent(AddPersonal.this, Personal.class);
+                        startActivity(personal);
+                        finish();
+                    } else {
+                        Toast.makeText(AddPersonal.this, "Failed to Update Contact", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            })
+        );
     }
 }

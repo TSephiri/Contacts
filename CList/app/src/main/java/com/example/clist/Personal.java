@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.INodeJS;
@@ -54,9 +55,23 @@ public class Personal extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent contactDetails = new Intent(Personal.this,AddPersonal.class);
+
                 PersonalContactModel tempContact = contactList.get(position);
-                //contactDetails.putExtra("contact", (Parcelable) tempContact);
+                contactDetails.putExtra("id", tempContact.getUser_id());
+                contactDetails.putExtra("name", tempContact.getName());
+                contactDetails.putExtra("surname", tempContact.getSurname());
+                contactDetails.putExtra("bday", tempContact.getBirthday());
+                contactDetails.putExtra("email", tempContact.getEmail());
+                contactDetails.putExtra("phone", tempContact.getPhone_number());
+                contactDetails.putExtra("street", tempContact.getStreet());
+                contactDetails.putExtra("post", tempContact.getPostal_code());
+                contactDetails.putExtra("city", tempContact.getCity());
+                contactDetails.putExtra("type_ad",tempContact.getType_add());
+
+                Toast.makeText(Personal.this,""+tempContact.getUser_id()+" "+tempContact.getName()+"   "+
+                        tempContact.getBirthday()+" "+tempContact.getStreet(),Toast.LENGTH_LONG).show();
                 startActivity(contactDetails);
+                finish();
             }
         });
 

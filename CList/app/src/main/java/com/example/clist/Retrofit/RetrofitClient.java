@@ -7,7 +7,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit instance_Post;
-    private static String url = "http://192.168.43.224:3000/";
+    private static String url = "http://192.168.8.100:3000/"; //"http://192.168.43.224:3000/";Mate 10
 
 
     public static Retrofit getInstance(){

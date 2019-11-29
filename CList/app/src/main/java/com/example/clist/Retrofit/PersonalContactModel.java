@@ -1,8 +1,8 @@
 package com.example.clist.Retrofit;
 
 public class PersonalContactModel {
-    private String user_id,birthday,email,phone_number,name,surname,
-            type_add,street,postal_code,city;
+    private String user_id,type,pic_add,birthday,email,phone_number,name,surname,
+            Add_id,type_add,Street,postal_code,city;
 
 
     public PersonalContactModel(String user_id, String birthday, String email, String phone_number,
@@ -15,9 +15,33 @@ public class PersonalContactModel {
         this.name = name;
         this.surname = surname;
         this.type_add = type_add;
-        this.street = street;
+        this.Street = street;
         this.postal_code = postal_code;
         this.city = city;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPic_add() {
+        return pic_add;
+    }
+
+    public void setPic_add(String pic_add) {
+        this.pic_add = pic_add;
+    }
+
+    public String getAdd_id() {
+        return Add_id;
+    }
+
+    public void setAdd_id(String add_id) {
+        Add_id = add_id;
     }
 
     public String getUser_id() {
@@ -77,11 +101,11 @@ public class PersonalContactModel {
     }
 
     public String getStreet() {
-        return street;
+        return Street;
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.Street = street;
     }
 
     public String getPostal_code() {

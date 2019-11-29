@@ -50,17 +50,22 @@ public interface INodeJS {
 
     @POST("update/UpdatePersonalContact")
     @FormUrlEncoded
-    Observable<String> updatePersonalContact(@Field("type")String type,
+    Observable<String> updatePersonalContact(@Field("type")String conType,
+                                             @Field("id") String id,
+                                             @Field("birthday")String birthday,
+                                             @Field("name") String name,
                                              @Field("email")String email,
                                              @Field("phone_number")String phone_number,
+                                             @Field("type_ad1")String type_ad,
                                              @Field("surname")String surname,
-                                             @Field("street1")String street1,
+                                             @Field("street1")String street,
                                              @Field("postal_code1")String postal_code1,
                                              @Field("city1")String city1);
 
     @POST("update/updateBusinessContact")
     @FormUrlEncoded
     Observable<String> updateBusinessContact(@Field("type")String type,
+                                             @Field("id") String id,
                                              @Field("emails")String email,
                                              @Field("phone_numbers")String phone_number,
                                              @Field("type_ad1")String type_ad1,
