@@ -33,6 +33,7 @@ import retrofit2.Retrofit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clist.Retrofit.INodeJS;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -47,7 +48,7 @@ public class Business extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<BusinessContactModel> bcmList;
     ArrayList<String> aList = new ArrayList<String>();
-
+    FloatingActionButton FAB;
 
     @Override
     protected void onStop() {
@@ -66,14 +67,20 @@ public class Business extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_business);
 
-        //TextView addB = (TextView) findViewById(R.id.AddBusiness);
+        FAB = findViewById(R.id.fab);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent add = new Intent(Business.this,AddBusiness.class);
+                startActivity(add);
+            }
+        });
 
         //Init api
         Retrofit retrofit = RetrofitClient.getInstance_get();
         myAPI = retrofit.create(INodeJS.class);
 
         getBusinessContacts();
-
 
     }
 

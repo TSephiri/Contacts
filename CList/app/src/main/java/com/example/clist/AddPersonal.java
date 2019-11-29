@@ -71,7 +71,7 @@ public class AddPersonal extends AppCompatActivity {
         myAPI = retrofit.create(INodeJS.class);
 
         TextView save = (TextView) findViewById(R.id.btn_Save);
-         FAB = findViewById(R.id.fab);
+
 
         tiname = findViewById(R.id.name);
         tisurname = findViewById(R.id.surname);
@@ -83,11 +83,11 @@ public class AddPersonal extends AppCompatActivity {
         tibirthday = findViewById(R.id.Bday);
 
 
-        ID = getIntent().getStringExtra("id");
+        update = getIntent().getBooleanExtra("update",false);
 
-        if(!ID.equals("")){
+        if(update){
             displayInfo();
-            update = true;
+            //update = true;
         }
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +102,14 @@ public class AddPersonal extends AppCompatActivity {
             }
         });
 
-//        FAB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        FAB = findViewById(R.id.fab);
+
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

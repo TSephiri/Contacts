@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.INodeJS;
 import com.example.clist.Retrofit.RetrofitClient;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Personal extends AppCompatActivity {
     ArrayList<String> aList = new ArrayList<String>();
     ArrayList<PersonalContactModel> contactList = new ArrayList<PersonalContactModel>();
     ListView listView;
+    FloatingActionButton FAB;
 
     @Override
     protected void onStop() {
@@ -50,6 +52,16 @@ public class Personal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
+        FAB = findViewById(R.id.fab);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent add = new Intent(Personal.this,AddPersonal.class);
+                add.putExtra("update",false);
+                startActivity(add);
+            }
+        });
+
         listView = (ListView) findViewById(R.id.pListView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +79,7 @@ public class Personal extends AppCompatActivity {
                 contactDetails.putExtra("post", tempContact.getPostal_code());
                 contactDetails.putExtra("city", tempContact.getCity());
                 contactDetails.putExtra("type_ad",tempContact.getType_add());
+                contactDetails.putExtra("update",true);
 
                 Toast.makeText(Personal.this,""+tempContact.getUser_id()+" "+tempContact.getName()+"   "+
                         tempContact.getBirthday()+" "+tempContact.getStreet(),Toast.LENGTH_LONG).show();
@@ -76,6 +89,7 @@ public class Personal extends AppCompatActivity {
         });
 
         getPersonalContacts();
+
     }
 
     public void getPersonalContacts(){

@@ -39,6 +39,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/ic_person_add_24px"
+        android:clickable="true"
         app:layout_anchor="@id/pListView"
         app:layout_anchorGravity="bottom|right|end" />
 </FrameLayout>
