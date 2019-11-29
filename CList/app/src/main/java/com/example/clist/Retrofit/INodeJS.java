@@ -24,7 +24,8 @@ public interface INodeJS {
                                           @Field("type_ad1")String type_ad1,
                                           @Field("street1")String street1,
                                           @Field("postal_code1")String postal_code1,
-                                          @Field("city1")String city1);
+                                          @Field("city1")String city1,
+                                          @Field("pic_add")String pic_add);
 
     @POST("/add/addBusinessContact")
     @FormUrlEncoded
@@ -60,7 +61,8 @@ public interface INodeJS {
                                              @Field("surname")String surname,
                                              @Field("street1")String street,
                                              @Field("postal_code1")String postal_code1,
-                                             @Field("city1")String city1);
+                                             @Field("city1")String city1,
+                                             @Field("pic_add")String pic_add);
 
     @POST("update/updateBusinessContact")
     @FormUrlEncoded
@@ -75,7 +77,8 @@ public interface INodeJS {
                                              @Field("type_ad2")String type_ad2,
                                              @Field("street2")String street2,
                                              @Field("postal_code2")String postal_code2,
-                                             @Field("city2")String city2);
+                                             @Field("city2")String city2,
+                                             @Field("pic_add") String pic_add);
 
     @GET("personal/getPersonalContacts")
     Call<List<PersonalContactModel>> getPersonalContacts();

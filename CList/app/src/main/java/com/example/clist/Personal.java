@@ -3,11 +3,16 @@ package com.example.clist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,6 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static com.example.clist.AddPersonal.RESULT_LOAD_IMAGE;
 
 public class Personal extends AppCompatActivity {
 
@@ -82,6 +89,7 @@ public class Personal extends AppCompatActivity {
                 contactDetails.putExtra("post", tempContact.getPostal_code());
                 contactDetails.putExtra("city", tempContact.getCity());
                 contactDetails.putExtra("type_ad",tempContact.getType_add());
+                contactDetails.putExtra("pic_add",tempContact.getPic_add());
                 contactDetails.putExtra("update",true);
 
                 Toast.makeText(Personal.this,""+tempContact.getUser_id()+" "+tempContact.getName()+"   "+
@@ -94,6 +102,8 @@ public class Personal extends AppCompatActivity {
         getPersonalContacts();
 
     }
+
+
 
     public void getPersonalContacts(){
         Retrofit retrofit = RetrofitClient.getInstance_get();
@@ -123,7 +133,7 @@ public class Personal extends AppCompatActivity {
         {
             contactList.add(new PersonalContactModel(model.getUser_id(),model.getBirthday(),model.getEmail(),
                     model.getPhone_number(),model.getName(),model.getSurname(),
-                    model.getType_add(), model.getStreet(),model.getPostal_code(),model.getCity()));
+                    model.getType_add(), model.getStreet(),model.getPostal_code(),model.getCity(),model.getPic_add()));
         }
 
         ContactAdapter bAdapt = new ContactAdapter(this,contactList);

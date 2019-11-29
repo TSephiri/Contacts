@@ -1,13 +1,13 @@
 package com.example.clist;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,11 +57,15 @@ public class ContactAdapter extends ArrayAdapter<PersonalContactModel> {
         numberTextView.setText(currentPersonalContactModel.getPhone_number());
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-//        ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
+        ImageView iconView = (ImageView) listItemView.findViewById(R.id.image);
 //        // Get the image resource ID from the current AndroidFlavor object and
 //        // set the image to iconView
-//        iconView.setImageResource(currentAndroidFlavor.getImageResourceId());
-
+        String pic = currentPersonalContactModel.getPic_add();
+        if(pic != null) {
+            iconView.setImageBitmap(BitmapFactory.decodeFile(pic));
+        }else{
+            iconView.setImageResource(R.drawable.ic_account_circle_24px);
+        }
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
         return listItemView;
