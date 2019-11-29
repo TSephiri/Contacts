@@ -1,138 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBusiness">
+    tools:context=".AddBusiness"
+    >
 
-    <LinearLayout
-        style="@style/linearLayout">
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            style="@style/linearLayout">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:id="@+id/name">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Company Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/surname">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                android:id="@+id/name">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Tax Number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Company Name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/email1">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Email Address" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/email2">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/surname">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Email Address" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Tax Number"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/email3">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Email Address" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:id="@+id/Phone_Number1">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/email1">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Phone Number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Email Address" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:id="@+id/Phone_Number2">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Phone Number"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            android:id="@+id/Phone_Number3">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/email2">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Phone Number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Email Address" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/street">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Street " />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/City">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/email3">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="City"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Email Address" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/InputStyle"
-            app:errorEnabled="true"
-            android:id="@+id/postal">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                android:id="@+id/Phone_Number1">
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/editText"
-                android:hint="Postal Code"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Phone Number"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_Save"
-            style="@style/ButtonStyle"
-            android:text="Save Contact" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                android:id="@+id/Phone_Number2">
 
-    </LinearLayout>
 
-</ScrollView>
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Phone Number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                android:id="@+id/Phone_Number3">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Phone Number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/street">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Street " />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/City">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="City"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/InputStyle"
+                app:errorEnabled="true"
+                android:id="@+id/postal">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/editText"
+                    android:hint="Postal Code"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_Save"
+                style="@style/ButtonStyle"
+                android:text="Save Contact" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_person_add_24px"
+        app:layout_anchor="@id/sv"
+        app:layout_anchorGravity="bottom|right|end"
+        android:clickable="true"
+        />
+
+</FrameLayout>

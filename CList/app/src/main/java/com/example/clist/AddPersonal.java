@@ -15,6 +15,7 @@ import com.example.clist.Retrofit.BusinessContactModel;
 import com.example.clist.Retrofit.INodeJS;
 import com.example.clist.Retrofit.PersonalContactModel;
 import com.example.clist.Retrofit.RetrofitClient;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
@@ -35,6 +36,7 @@ public class AddPersonal extends AppCompatActivity {
 
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+    FloatingActionButton FAB;
 
     TextInputLayout tiname,tisurname,tiemail,tiphone,tibirthday,tistreet,ticode,ticity;
     String name,surname,email,phone,birthday,street,code,city;
@@ -69,6 +71,8 @@ public class AddPersonal extends AppCompatActivity {
         myAPI = retrofit.create(INodeJS.class);
 
         TextView save = (TextView) findViewById(R.id.btn_Save);
+         FAB = findViewById(R.id.fab);
+
         tiname = findViewById(R.id.name);
         tisurname = findViewById(R.id.surname);
         tiemail = findViewById(R.id.email);
@@ -98,6 +102,12 @@ public class AddPersonal extends AppCompatActivity {
             }
         });
 
+//        FAB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
     }
 
