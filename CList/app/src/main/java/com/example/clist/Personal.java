@@ -62,6 +62,9 @@ public class Personal extends AppCompatActivity {
             }
         });
 
+        /*Passing object info to new intent
+         *to populate edit views
+         */
         listView = (ListView) findViewById(R.id.pListView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

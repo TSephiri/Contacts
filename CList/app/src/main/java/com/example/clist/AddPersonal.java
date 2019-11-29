@@ -72,7 +72,9 @@ public class AddPersonal extends AppCompatActivity {
 
         TextView save = (TextView) findViewById(R.id.btn_Save);
 
+        /* Assigning TextInputs to their corresponding views
 
+         */
         tiname = findViewById(R.id.name);
         tisurname = findViewById(R.id.surname);
         tiemail = findViewById(R.id.email);
@@ -87,7 +89,6 @@ public class AddPersonal extends AppCompatActivity {
 
         if(update){
             displayInfo();
-            //update = true;
         }
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -107,12 +108,16 @@ public class AddPersonal extends AppCompatActivity {
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(update)
+                {
+                    ID = getIntent().getStringExtra("id");
+                    deleteContact(ID);
+                }
             }
         });
 
     }
-
+    //getting contact info from editText
     public void getContactInfo(){
        name = tiname.getEditText().getText().toString().trim();
        surname = tisurname.getEditText().getText().toString().trim();
@@ -124,6 +129,7 @@ public class AddPersonal extends AppCompatActivity {
        birthday = tibirthday.getEditText().getText().toString().trim();
     }
 
+    //Method to create a new contact
     public void addContact(String n,String s,String e,String no,String str,String c,
                            String code,String bday)
     {
@@ -148,6 +154,8 @@ public class AddPersonal extends AppCompatActivity {
                 })
         );
     }
+
+    //method to set EditText to info passed to this activity
     public void displayInfo(){
         tiname.getEditText().setText(getIntent().getStringExtra("name"));
         tisurname.getEditText().setText(getIntent().getStringExtra("surname"));
@@ -159,6 +167,7 @@ public class AddPersonal extends AppCompatActivity {
         ticode.getEditText().setText(getIntent().getStringExtra("post"));
     }
 
+    //method to update contact based on info in editText
     public void updateContact(String n,String s,String e,String no,String str,String c,
                               String code,String bday,String id)
     {
@@ -182,6 +191,29 @@ public class AddPersonal extends AppCompatActivity {
                     }
                 }
             })
+        );
+    }
+
+    public void deleteContact(String id)
+    {
+        compositeDisposable.add(myAPI.deletePersonalContact(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        if (s.equals("1"))//column name from database
+                        {
+                            Toast.makeText(AddPersonal.this, "Deleted Contact ", Toast.LENGTH_SHORT).show();
+                            //creating new activity
+                            Intent personal = new Intent(AddPersonal.this, Personal.class);
+                            startActivity(personal);
+                            finish();
+                        } else {
+                            Toast.makeText(AddPersonal.this, "Failed to Delete Contact", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
         );
     }
 }
