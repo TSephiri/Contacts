@@ -51,15 +51,18 @@
                         android:hint="Phone Number"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/InputStyle"
-                    android:id="@+id/Bday">
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/InputStyle"
+                        android:id="@+id/Bday"
+                        android:focusable="true"
+                        android:clickable="true">
 
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/editText"
-                        android:hint="Birthday"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/b"
+                            style="@style/editText"
+                            android:hint="Birthday"
+                           />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/InputStyle"

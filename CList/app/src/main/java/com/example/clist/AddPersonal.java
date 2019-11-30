@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,9 +45,14 @@ public class AddPersonal extends AppCompatActivity {
     FloatingActionButton FAB;
     ImageView proPic;
 
+
     TextInputLayout tiname,tisurname,tiemail,tiphone,tibirthday,tistreet,ticode,ticity;
     String name,surname,email,phone,birthday,street,code,city,pic_add;
     String ID;
+
+    public void setBirthday(String bday){
+        tibirthday.getEditText().setText(bday);
+    }
 
     boolean update = false;
     public static int RESULT_LOAD_IMAGE = 1;
@@ -91,7 +97,8 @@ public class AddPersonal extends AppCompatActivity {
         ticode = findViewById(R.id.postal);
         tibirthday = findViewById(R.id.Bday);
 
-
+        //getting boolean indicating whether to update a contact or
+        //create a new one
         update = getIntent().getBooleanExtra("update",false);
         ID = getIntent().getStringExtra("id");
 
@@ -139,6 +146,28 @@ public class AddPersonal extends AppCompatActivity {
                         Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
+        //OnCLick listener for birthday used to start calender event
+//        tibirthday.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent cal_view = new Intent(AddPersonal.this, Calendar.class);
+//                String date = "";
+//                cal_view.putExtra("date",date);
+//                startActivity(cal_view);
+//            }
+//        });
+
+        EditText et = findViewById(R.id.b);
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cal_view = new Intent(AddPersonal.this, Calender.class);
+                String date = "";
+                cal_view.putExtra("date",date);
+                startActivity(cal_view);
             }
         });
 

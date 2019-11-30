@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -17,14 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddBusiness"
-            android:label="@string/cat_addBusiness"/>
-        <activity android:name=".AddPersonal"
-            android:label="@string/cat_addPersonal"/>
-        <activity android:name=".Business"
-            android:label="@string/cat_business"/>
-        <activity android:name=".Personal"
-            android:label="@string/cat_personal"/>
+        <activity android:name=".Calender"></activity>
+        <activity
+            android:name=".AddBusiness"
+            android:label="@string/cat_addBusiness" />
+        <activity
+            android:name=".AddPersonal"
+            android:label="@string/cat_addPersonal" />
+        <activity
+            android:name=".Business"
+            android:label="@string/cat_business" />
+        <activity
+            android:name=".Personal"
+            android:label="@string/cat_personal" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
