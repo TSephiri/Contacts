@@ -4,6 +4,7 @@ package com.example.clist;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CalendarView;
 
@@ -22,7 +23,10 @@ public class Calender extends AppCompatActivity {
         cV.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                //setBirthday("");
+                Intent intent = new Intent();
+                intent.putExtra("date",dayOfMonth+"-"+month+1+"-"+year);
+                setResult(0,intent);
+                finish();
             }
         });
 

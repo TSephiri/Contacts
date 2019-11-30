@@ -165,9 +165,9 @@ public class AddPersonal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cal_view = new Intent(AddPersonal.this, Calender.class);
-                String date = "";
-                cal_view.putExtra("date",date);
-                startActivity(cal_view);
+                //String date = "";
+                //cal_view.putExtra("date",date);
+                startActivityForResult(cal_view,0);
             }
         });
 
@@ -195,7 +195,13 @@ public class AddPersonal extends AppCompatActivity {
             proPic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
         }
 
+        if(requestCode == 0 && null!= data)
+        {
+            setBirthday(data.getStringExtra("date"));
+        }
+
     }
+
     //getting contact info from editText
     public void getContactInfo(){
        name = tiname.getEditText().getText().toString().trim();
