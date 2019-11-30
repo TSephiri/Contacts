@@ -14,11 +14,13 @@
 
                 <ImageView
                     android:id="@+id/pic"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:clickable="true"
+                    android:layout_width="283dp"
+                    android:layout_height="223dp"
                     android:layout_margin="50dp"
-                    android:textAlignment="center"/>
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="center"
+                    android:contentDescription="Profile Picture" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/InputStyle"

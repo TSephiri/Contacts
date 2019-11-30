@@ -24,7 +24,8 @@ public class Calender extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Intent intent = new Intent();
-                intent.putExtra("date",dayOfMonth+"-"+month+1+"-"+year);
+                month++;
+                intent.putExtra("date",dayOfMonth+"-"+month+"-"+year);
                 setResult(0,intent);
                 finish();
             }
