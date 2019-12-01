@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class AddBusiness extends AppCompatActivity {
     FloatingActionButton FAB;
@@ -19,6 +20,9 @@ public class AddBusiness extends AppCompatActivity {
     boolean update = false;
     ImageView proPic;
     public static int RESULT_LOAD_IMAGE = 1;
+
+    TextInputLayout tiname,tiVat,tiemail1,tiphone1,tiemail2,tiphone2,tistreet,ticode,
+            ticity,tistreet1,ticode1,ticity1;
 
     String pic_add;
 
@@ -82,10 +86,32 @@ public class AddBusiness extends AppCompatActivity {
             proPic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
         }
 
-//        if(requestCode == 0 && null!= data)
-//        {
-//            setBirthday(data.getStringExtra("date"));
-//        }
-
     }
+
+    public void displayInfo(){
+        tiname.getEditText().setText(getIntent().getStringExtra("name"));
+        tiemail1.getEditText().setText(getIntent().getStringExtra("email1"));
+        tiemail2.getEditText().setText(getIntent().getStringExtra("email2"));
+        tiphone1.getEditText().setText(getIntent().getStringExtra("phone1"));
+        tiphone2.getEditText().setText(getIntent().getStringExtra("phone2"));
+        tistreet.getEditText().setText(getIntent().getStringExtra("street"));
+        ticity.getEditText().setText(getIntent().getStringExtra("city"));
+        ticode.getEditText().setText(getIntent().getStringExtra("post"));
+        tistreet.getEditText().setText(getIntent().getStringExtra("street"));
+        ticity.getEditText().setText(getIntent().getStringExtra("city"));
+        ticode.getEditText().setText(getIntent().getStringExtra("post"));
+        tistreet1.getEditText().setText(getIntent().getStringExtra("street2"));
+        ticity1.getEditText().setText(getIntent().getStringExtra("city2"));
+        ticode1.getEditText().setText(getIntent().getStringExtra("post2"));
+        pic_add = getIntent().getStringExtra("pic_add");
+
+        ImageView Pic = findViewById(R.id.pic);
+        if(pic_add != null) {
+            Pic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
+        }else
+        {
+            Pic.setImageResource(R.drawable.ic_person_add_24px);
+        }
+    }
+
 }
