@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -47,8 +48,10 @@ public class Business extends AppCompatActivity {
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<BusinessContactModel> bcmList;
-    ArrayList<String> aList = new ArrayList<String>();
+    ArrayList<BusinessContactModel> contactList = new ArrayList<>();
+    //ArrayList<BusinessContactModel> aList = new ArrayList<String>();
     FloatingActionButton FAB;
+    ListView listView;
 
     @Override
     protected void onStop() {
@@ -76,6 +79,28 @@ public class Business extends AppCompatActivity {
             }
         });
 
+
+
+        listView = findViewById(R.id.lView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent contactDetails = new Intent(Business.this,AddBusiness.class);
+
+                BusinessContactModel tempContact = contactList.get(position);
+//                contactDetails.putExtra("id", tempContact.getUser_id());
+//                contactDetails.putExtra("name", tempContact.getName());
+//                contactDetails.putExtra("type_ad",tempContact.getType_add());
+//                contactDetails.putExtra("pic_add",tempContact.getPic_add());
+//                contactDetails.putExtra("update",true);
+
+//                Toast.makeText(Business.this,""+tempContact.getUser_id()+" "+tempContact.getName()+"   "+
+//                        tempContact.getType_add()+" "+tempContact.getStreet(),Toast.LENGTH_LONG).show();
+                startActivity(contactDetails);
+                finish();
+            }
+        });
         //Init api
         Retrofit retrofit = RetrofitClient.getInstance_get();
         myAPI = retrofit.create(INodeJS.class);
@@ -110,17 +135,14 @@ public class Business extends AppCompatActivity {
 
         for(BusinessContactModel model : bcmList)
         {
-            aList.add(model.getName());
-
+            contactList.add(new BusinessContactModel(model.getUser_id(),model.getType(),model.getPic_add(),
+                    model.getVat_no(),model.getEmails(),model.getPhone_numbers(),model.getName(),
+                    model.getType_add(),model.getStreet(),model.getPostal_code(),model.getCity()
+                   ));
         }
 
-        String[] cList = new String[aList.size()];
-
-         cList = aList.toArray(cList);
-
-         ArrayAdapter<String> bAdapt = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,cList);
-         ListView listView = (ListView) findViewById(R.id.lView);
-         listView.setAdapter(bAdapt);
+        BusinessContactAdapter bAdapt = new BusinessContactAdapter(Business.this,contactList);
+        listView.setAdapter(bAdapt);
 
     }
 

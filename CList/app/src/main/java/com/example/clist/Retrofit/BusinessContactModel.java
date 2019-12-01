@@ -13,6 +13,22 @@ public class BusinessContactModel {
     private String postal_code;
     private String city;
 
+    public BusinessContactModel(String user_id, String type, String pic_add, String vat_no,
+                                String emails, String phone_numbers, String name, String type_add,
+                                String street, String postal_code, String city) {
+        this.user_id = user_id;
+        this.type = type;
+        this.pic_add = pic_add;
+        this.vat_no = vat_no;
+        this.emails = emails;
+        this.phone_numbers = phone_numbers;
+        this.name = name;
+        this.type_add = type_add;
+        this.street = street;
+        this.postal_code = postal_code;
+        this.city = city;
+    }
+
     public String getType() {
         return type;
     }

@@ -37,7 +37,7 @@ public class Personal extends AppCompatActivity {
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     List<PersonalContactModel> pcmList;
-    ArrayList<String> aList = new ArrayList<String>();
+    //ArrayList<String> aList = new ArrayList<String>();
     ArrayList<PersonalContactModel> contactList = new ArrayList<PersonalContactModel>();
     ListView listView;
     FloatingActionButton FAB;
