@@ -251,6 +251,7 @@ public class AddPersonal extends AppCompatActivity {
         ticity.getEditText().setText(getIntent().getStringExtra("city"));
         ticode.getEditText().setText(getIntent().getStringExtra("post"));
         pic_add = getIntent().getStringExtra("pic_add");
+
         ImageView Pic = findViewById(R.id.pic);
         if(pic_add != null) {
             Pic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
@@ -309,4 +310,5 @@ public class AddPersonal extends AppCompatActivity {
                 })
         );
     }
+
 }

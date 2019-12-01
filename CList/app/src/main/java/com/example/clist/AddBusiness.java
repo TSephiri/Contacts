@@ -27,6 +27,16 @@ public class AddBusiness extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_business);
 
+        proPic = findViewById(R.id.pic);
+
+        if(update){
+            //displayInfo();
+        }else
+        {
+            //ImageView Pic = findViewById(R.id.pic);
+            proPic.setImageResource(R.drawable.ic_person_add_24px);
+        }
+
         FAB = findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +45,7 @@ public class AddBusiness extends AppCompatActivity {
             }
         });
 
-        proPic = findViewById(R.id.pic);
+
 
         proPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +57,7 @@ public class AddBusiness extends AppCompatActivity {
             }
         });
 
-        if(update){
-            //displayInfo();
-        }else
-        {
-            proPic = findViewById(R.id.pic);
-            proPic.setImageResource(R.drawable.ic_person_add_24px);
-        }
+
     }
 
     @Override
@@ -74,7 +78,7 @@ public class AddBusiness extends AppCompatActivity {
 
             // String picturePath contains the path of selected Image
 
-            proPic = (ImageView) findViewById(R.id.pic);
+            //proPic = (ImageView) findViewById(R.id.pic);
             proPic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
         }
 
