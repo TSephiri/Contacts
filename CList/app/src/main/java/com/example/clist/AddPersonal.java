@@ -3,11 +3,16 @@ package com.example.clist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,12 +43,19 @@ public class AddPersonal extends AppCompatActivity {
     INodeJS myAPI;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     FloatingActionButton FAB;
+    ImageView proPic;
+
 
     TextInputLayout tiname,tisurname,tiemail,tiphone,tibirthday,tistreet,ticode,ticity;
-    String name,surname,email,phone,birthday,street,code,city;
+    String name,surname,email,phone,birthday,street,code,city,pic_add;
     String ID;
 
+    public void setBirthday(String bday){
+        tibirthday.getEditText().setText(bday);
+    }
+
     boolean update = false;
+    public static int RESULT_LOAD_IMAGE = 1;
 
     List<PersonalContactModel> pcmList;
     ArrayList<String> aList = new ArrayList<String>();
@@ -84,21 +97,29 @@ public class AddPersonal extends AppCompatActivity {
         ticode = findViewById(R.id.postal);
         tibirthday = findViewById(R.id.Bday);
 
-
+        //getting boolean indicating whether to update a contact or
+        //create a new one
         update = getIntent().getBooleanExtra("update",false);
+        ID = getIntent().getStringExtra("id");
 
         if(update){
             displayInfo();
-        }
+        }else
+        {
+            ImageView Pic = findViewById(R.id.pic);
+            Pic.setImageResource(R.drawable.ic_person_add_24px);
 
+        }
+        //Method to check if contact should be updated of deleted!!!
+        //then passing values to retrofit api
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getContactInfo();
                 if(update) {
-                    updateContact(name, surname, email, phone, street, city, code, birthday,ID);
+                    updateContact(name, surname, email, phone, street, city, code, birthday,ID,pic_add);
                 }else{
-                    addContact(name, surname, email, phone, street, city, code, birthday);
+                    addContact(name, surname, email, phone, street, city, code, birthday,pic_add);
                 }
             }
         });
@@ -116,7 +137,71 @@ public class AddPersonal extends AppCompatActivity {
             }
         });
 
+        proPic = findViewById(R.id.pic);
+
+        proPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
+        //OnCLick listener for birthday used to start calender event
+//        tibirthday.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent cal_view = new Intent(AddPersonal.this, Calendar.class);
+//                String date = "";
+//                cal_view.putExtra("date",date);
+//                startActivity(cal_view);
+//            }
+//        });
+
+        EditText et = findViewById(R.id.b);
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cal_view = new Intent(AddPersonal.this, Calender.class);
+                //String date = "";
+                //cal_view.putExtra("date",date);
+                startActivityForResult(cal_view,0);
+            }
+        });
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            pic_add = cursor.getString(columnIndex);
+            cursor.close();
+
+            // String picturePath contains the path of selected Image
+
+            proPic = (ImageView) findViewById(R.id.pic);
+            proPic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
+        }
+
+        if(requestCode == 0 && null!= data)
+        {
+            setBirthday(data.getStringExtra("date"));
+        }
+
+    }
+
     //getting contact info from editText
     public void getContactInfo(){
        name = tiname.getEditText().getText().toString().trim();
@@ -131,10 +216,10 @@ public class AddPersonal extends AppCompatActivity {
 
     //Method to create a new contact
     public void addContact(String n,String s,String e,String no,String str,String c,
-                           String code,String bday)
+                           String code,String bday,String pic)
     {
 
-        compositeDisposable.add(myAPI.addPersonalContact("p",n,e,no,bday,s,"residential",str,code,c)
+        compositeDisposable.add(myAPI.addPersonalContact("p",n,e,no,bday,s,"residential",str,code,c,pic)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
@@ -165,15 +250,24 @@ public class AddPersonal extends AppCompatActivity {
         tistreet.getEditText().setText(getIntent().getStringExtra("street"));
         ticity.getEditText().setText(getIntent().getStringExtra("city"));
         ticode.getEditText().setText(getIntent().getStringExtra("post"));
+        pic_add = getIntent().getStringExtra("pic_add");
+
+        ImageView Pic = findViewById(R.id.pic);
+        if(pic_add != null) {
+            Pic.setImageBitmap(BitmapFactory.decodeFile(pic_add));
+        }else
+        {
+            Pic.setImageResource(R.drawable.ic_person_add_24px);
+        }
     }
 
     //method to update contact based on info in editText
     public void updateContact(String n,String s,String e,String no,String str,String c,
-                              String code,String bday,String id)
+                              String code,String bday,String id,String pic)
     {
-        Toast.makeText(AddPersonal.this, "addContact: "+ n +"  "+ e +"   "+ bday+"  "+ str, Toast.LENGTH_LONG).show();
+        Toast.makeText(AddPersonal.this, "addContact: "+ id +" "+ n +"  "+ e +"   "+ pic +"  "+ str, Toast.LENGTH_LONG).show();
        // Log.i("addContact: "+ n +"  "+ e +"   "+ bday+"  "+ str,);
-        compositeDisposable.add(myAPI.updatePersonalContact("p",id,bday,n,e,no,"Physical",s,str,code,c)
+        compositeDisposable.add(myAPI.updatePersonalContact("p",id,bday,n,e,no,"Physical",s,str,code,c,pic)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
@@ -216,4 +310,5 @@ public class AddPersonal extends AppCompatActivity {
                 })
         );
     }
+
 }

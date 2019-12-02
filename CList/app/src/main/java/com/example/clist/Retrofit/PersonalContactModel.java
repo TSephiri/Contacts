@@ -5,17 +5,35 @@ public class PersonalContactModel {
             Add_id,type_add,Street,postal_code,city;
 
 
+//    public PersonalContactModel(String user_id, String birthday, String email, String phone_number,
+//                                String name, String surname, String type_add, String street,
+//                                String postal_code, String city) {
+//        this.user_id = user_id;
+//        this.birthday = birthday;
+//        this.email = email;
+//        this.phone_number = phone_number;
+//        this.name = name;
+//        this.surname = surname;
+//        this.type_add = type_add;
+//        this.Street = street;
+//        this.postal_code = postal_code;
+//        this.city = city;
+//    }
+
     public PersonalContactModel(String user_id, String birthday, String email, String phone_number,
-                                String name, String surname, String type_add, String street,
-                                String postal_code, String city) {
+                                    String name, String surname, String type_add, String street,
+                                    String postal_code, String city,String pic_add) {
         this.user_id = user_id;
+        this.type = type;
+        this.pic_add = pic_add;
         this.birthday = birthday;
         this.email = email;
         this.phone_number = phone_number;
         this.name = name;
         this.surname = surname;
+        //Add_id = add_id;
         this.type_add = type_add;
-        this.Street = street;
+        Street = street;
         this.postal_code = postal_code;
         this.city = city;
     }
