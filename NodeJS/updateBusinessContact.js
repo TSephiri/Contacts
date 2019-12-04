@@ -35,52 +35,24 @@ router.post("/updateBusinessContact",(req,res)=>{
                         var emails = req.body.emails
                         var phone_numbers = req.body.phone_numbers
                         var vat_no = req.body.vat_no
+                        
+                        var street_1 = req.body.street1
+                        var postal_code_1 = req.body.postal_code1
+                        var city_1 = req.body.city1
 
-                        query = "update business set name = ?, vat_no = ?, emails = ?, phone_numbers = ? where user_id = ?"
-                        con.query(query,[name,vat_no,emails,phone_numbers,id],(err,rows,fields)=>{
+                        var street_2 = req.body.street2
+                        var postal_code_2 = req.body.postal_code2
+                        var city_2 = req.body.city2
+
+                        query = "update business set name = ?, vat_no = ?, emails = ?, phone_numbers = ?, street1 =?,postal_code1=? ,city1=?,street2 = ?,postal_code2 = ?,city2 = ? where user_id = ?"
+                        con.query(query,[name,vat_no,emails,phone_numbers,street_1,postal_code_1,city_1,street_2,postal_code_2,city_2,id],(err,rows,fields)=>{
                             if(err)
                             {
                                 logErr("failed to update business contact",err);
                                 logStatus(res,500);
                             }
-                            /**********************************
-                            * Update the business users address 1
-                            **********************************/
-                            var type_ad_1 = req.body.type_ad1
-                            var street_1 = req.body.street1
-                            var postal_code_1 = req.body.postal_code1
-                            var city_1 = req.body.city1
-
-                            query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
-                                con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>
-                                {
-                                    if(err)
-                                    {
-                                        logErr("failed to update address 1",err,res,"0");
-                                    }else
-                                    {
-                                            type_ad_1 = req.body.type_ad2
-                                            street_1 = req.body.street2
-                                            postal_code_1 = req.body.postal_code2
-                                            city_1 = req.body.city2
-
-                                        query = "update address set type_add = ?, street = ?,postal_code = ?, city= ? where user_id = ?"
-                                        con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>
-                                        {
-                                            if(err)
-                                            {
-                                                logErr("failed to update address 2",err,res,"0");
-                                                logStatus(500)
-                                            }else
-                                            {
-                                                console.log("success updated address 2");
-                                                res.send("1")
-                                                console.log("updated business contact")
-                                            }
-                                        })
-                                        
-                                    }
-                                })
+                            res.send("1")
+                            console.log("updated business contact");
                             })
                 }else
                 {
