@@ -16,7 +16,7 @@ var con = mysql.createConnection({
 
 router.get("/getBusinessContacts",(req,res)=>{
     
-    var query = "select * from contact C join business B on (C.user_id = B.user_id) join address A on (B.user_id = A.user_id)";
+    var query = "select * from contact C join business B on (C.user_id = B.user_id)";
     con.query(query,(err,rows,field)=>{
         if(err)
         {

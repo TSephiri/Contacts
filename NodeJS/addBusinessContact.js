@@ -49,20 +49,23 @@ router.post("/addBusinessContact",(req,res)=>{
                 console.log(id);  
                 }     
             console.log("retrieved contact id")
-            /***************************************
-             * conditions to check what kind of contact is to be added
-             * either personal "p" or business "b"
-            */
-            // if(type == "b")
-            // {
-
+            /***************************************/
+             
                 var name = req.body.name
                 var emails = req.body.emails
                 var phone_numbers = req.body.phone_numbers
                 var vat_no = req.body.vat_no
 
-                query = "insert into business(user_id,vat_no,emails,phone_numbers,name) values(?,?,?,?,?)"
-                con.query(query,[id,vat_no,emails,phone_numbers,name],(err,rows,fields)=>{
+                var street_1 = req.body.street1
+                var postal_code_1 = req.body.postal_code1
+                var city_1 = req.body.city1
+
+                var street_2 = req.body.street2
+                var postal_code_2 = req.body.postal_code2
+                var city_2 = req.body.city2
+
+                query = "insert into business(user_id,vat_no,emails,phone_numbers,name,street1,postal_code1,city1,street2,postal_code2,city2) values(?,?,?,?,?,?,?,?,?,?,?)"
+                con.query(query,[id,vat_no,emails,phone_numbers,name,street_1,postal_code_1,city_1,street_2,postal_code_2,city_2],(err,rows,fields)=>{
                     if(err)
                     {
                         console.log("failed to add business contact")
@@ -71,59 +74,20 @@ router.post("/addBusinessContact",(req,res)=>{
                         /****************
                          * query to delete generated contact if adding more informaion fails
                          ****************/
-                        query = "delete contact where id = ?"
+                        query = "delete from contact where user_id = ?"
                         con.query(query,[id],(err,rows,fields)=>{
                             if(err)
                             {
                                 logErr("failed to delete unused contact",err,res,"-1");
-                                logStatus(500);
+                                logStatus(res,500);
                             }
-                                res.send("1")
+                                //res.send("0")
                                 console.log("successfully deleted contact");
                         })
                     }else
                     {
-                        console.log("added business contact")
-                        
-                        /**************************************
-                         * adding address for business contact
-                         */
-
-                         //First address 
-                        var type_ad_1 = req.body.type_ad1
-                        var street_1 = req.body.street1
-                        var postal_code_1 = req.body.postal_code1
-                        var city_1 = req.body.city1
-
-                            query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
-                            con.query(query,[type_ad_1,street_1,postal_code_1,city_1,id],(err,rows,fields)=>{
-                                if(err)
-                                {
-                                    res.sendStatus(500)
-                                    console.log("failed to add address 1")
-                                }else
-                                {
-                                // *******************************
-                                //adding second address if first address is added successfully
-                                var type_ad_2 = req.body.type_ad2
-                                var street_2 = req.body.street2
-                                var postal_code_2 = req.body.postal_code2
-                                var city_2 = req.body.city2
-
-                                query = "insert into address(type_add,street,postal_code,city,user_id) values (?,?,?,?,?)"
-                                con.query(query,[type_ad_2,street_2,postal_code_2,city_2,id],(err,rows,fields)=>{
-                                    if(err)
-                                    {
-                                        res.sendStatus(500)
-                                        console.log("failed to add address 2")
-                                    }else{
-                                    console.log("added second address")
-                                    console.log("added contact safely")
-                                    res.send("1")
-                                    }
-                                })
-                                }
-                            })
+                        console.log("added business contact");
+                        res.send("1")
                     }
                 })
         })
