@@ -31,15 +31,6 @@ router.post("/deleteBusinessContact",(req,res)=>{
                 {
                     if(rows && rows.length)
                     {
-                        query = "delete from Address where user_id = ?"
-                        con.query(query,[id],(err,rows,fields)=>{
-                            if(err)
-                            {
-                                console.log("failed to delete user address details")
-                                console.log(err)
-                                res.sendStatus(500)
-                            }else
-                            { 
                                     query = "delete from business where user_id = ?"
                                     con.query(query,[id],(err,rows,fields)=>{
                                     if(err)
@@ -65,8 +56,7 @@ router.post("/deleteBusinessContact",(req,res)=>{
                                         //console.log("deleted user")
                                     }
                             })
-                        }
-                    })
+                
                     }else
                     {
                         //user does not exist
