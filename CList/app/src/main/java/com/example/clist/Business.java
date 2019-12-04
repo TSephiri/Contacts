@@ -137,7 +137,8 @@ public class Business extends AppCompatActivity {
         {
             contactList.add(new BusinessContactModel(model.getUser_id(),model.getType(),model.getPic_add(),
                     model.getVat_no(),model.getEmails(),model.getPhone_numbers(),model.getName(),
-                    model.getType_add(),model.getStreet(),model.getPostal_code(),model.getCity()
+                    model.getStreet1(),model.getPostal_code1(),model.getCity1(),model.getStreet2(),
+                    model.getPostal_code2(),model.getCity2()
                    ));
         }
 

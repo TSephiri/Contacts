@@ -8,14 +8,14 @@ public class BusinessContactModel {
     private String emails;
     private String phone_numbers;
     private String name;
-    private String type_add;
-    private String street;
-    private String postal_code;
-    private String city;
+    private String street1;
+    private String postal_code1;
+    private String city1;
+    private String street2;
+    private String postal_code2;
+    private String city2;
 
-    public BusinessContactModel(String user_id, String type, String pic_add, String vat_no,
-                                String emails, String phone_numbers, String name, String type_add,
-                                String street, String postal_code, String city) {
+    public BusinessContactModel(String user_id, String type, String pic_add, String vat_no, String emails, String phone_numbers, String name, String street1, String postal_code1, String city1, String street2, String postal_code2, String city2) {
         this.user_id = user_id;
         this.type = type;
         this.pic_add = pic_add;
@@ -23,10 +23,12 @@ public class BusinessContactModel {
         this.emails = emails;
         this.phone_numbers = phone_numbers;
         this.name = name;
-        this.type_add = type_add;
-        this.street = street;
-        this.postal_code = postal_code;
-        this.city = city;
+        this.street1 = street1;
+        this.postal_code1 = postal_code1;
+        this.city1 = city1;
+        this.street2 = street2;
+        this.postal_code2 = postal_code2;
+        this.city2 = city2;
     }
 
     public String getType() {
@@ -85,35 +87,51 @@ public class BusinessContactModel {
         this.name = name;
     }
 
-    public String getType_add() {
-        return type_add;
+    public String getStreet1() {
+        return street1;
     }
 
-    public void setType_add(String type_add) {
-        this.type_add = type_add;
+    public void setStreet1(String street1) {
+        this.street1 = street1;
     }
 
-    public String getStreet() {
-        return street;
+    public String getPostal_code1() {
+        return postal_code1;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setPostal_code1(String postal_code1) {
+        this.postal_code1 = postal_code1;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getCity1() {
+        return city1;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setCity1(String city1) {
+        this.city1 = city1;
     }
 
-    public String getCity() {
-        return city;
+    public String getStreet2() {
+        return street2;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public String getPostal_code2() {
+        return postal_code2;
+    }
+
+    public void setPostal_code2(String postal_code2) {
+        this.postal_code2 = postal_code2;
+    }
+
+    public String getCity2() {
+        return city2;
+    }
+
+    public void setCity2(String city2) {
+        this.city2 = city2;
     }
 }
